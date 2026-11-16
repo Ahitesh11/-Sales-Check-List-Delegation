@@ -760,19 +760,6 @@ export default function AllCompaniesPage() {
   return (
     <AdminLayout>
       <div className="max-w-7xl mx-auto pb-8 space-y-6">
-        {/* Page title */}
-        <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg">
-            <Sparkles className="h-6 w-6 text-white"/>
-          </div>
-          <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
-              Check List Dashboard
-            </h1>
-            <p className="text-sm text-slate-500 mt-0.5">Manage and update all checklist tasks</p>
-          </div>
-        </div>
-
         {/* Check List content directly */}
         <CompanyTaskContent key="checklist" config={checkListConfig} />
       </div>

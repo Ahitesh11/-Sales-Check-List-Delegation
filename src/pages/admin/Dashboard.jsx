@@ -980,24 +980,6 @@ export default function AdminDashboard() {
               </button>
             </div>
 
-            <select
-              value={selectedMasterOption}
-              onChange={(e) => setSelectedMasterOption(e.target.value)}
-              className="rounded-2xl border border-[#e2e8f0] bg-white px-3.5 py-2 text-xs font-bold text-[#334155] shadow-xs hover:border-[#cbd5e1] focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all cursor-pointer"
-              disabled={isFetchingMaster || dashboardType === "delegation"}
-            >
-              {dashboardType === "delegation" ? (
-                <option>Delegation Mode</option>
-              ) : isFetchingMaster ? (
-                <option>Loading...</option>
-              ) : (
-                masterSheetOptions.map((option, index) => (
-                  <option key={index} value={option}>
-                    {option}
-                  </option>
-                ))
-              )}
-            </select>
           </div>
         </div>
 
