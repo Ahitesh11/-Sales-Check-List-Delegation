@@ -138,12 +138,12 @@ export default function AdminLayout({ children, darkMode, toggleDarkMode }) {
         {/* Brand Header */}
         <div className="flex h-18 items-center px-6 pt-2">
           <Link to="/dashboard/admin" className="flex items-center gap-3">
-            <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#3b82f6] to-[#2563eb] flex items-center justify-center text-white shadow-md shadow-blue-500/25 font-black text-xl tracking-wider">
-              P
+            <div className="h-10 w-10 rounded-2xl bg-gradient-to-br from-[#10b981] to-[#059669] flex items-center justify-center text-white shadow-md shadow-emerald-500/25 font-black text-xl tracking-wider">
+              S
             </div>
             <div>
-              <span className="text-lg font-black tracking-tight text-[#1e293b]">
-                <span className="text-[#3b82f6]">POSSH</span> <span className="font-serif italic font-bold text-[#ec4899]">Town</span>
+              <span className="text-sm font-black leading-tight tracking-tight text-[#1e293b]">
+                <span className="text-[#10b981]">Sales Check List</span> <span className="font-serif italic font-bold text-[#f59e0b]">&amp; Delegation</span>
               </span>
             </div>
           </Link>
@@ -180,14 +180,14 @@ export default function AdminLayout({ children, darkMode, toggleDarkMode }) {
         {/* User Card + Logout */}
         <div className="p-4 border-t border-[#f1f5f9] space-y-2">
           <div className="flex items-center gap-3 p-2.5 rounded-2xl bg-[#f8fafc] border border-[#e2e8f0]/60">
-            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#3b82f6] to-[#1d4ed8] flex items-center justify-center text-white font-extrabold text-sm shadow-sm">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-[#10b981] to-[#047857] flex items-center justify-center text-white font-extrabold text-sm shadow-sm">
               {username ? username.charAt(0).toUpperCase() : 'U'}
             </div>
             <div className="overflow-hidden flex-1">
               <p className="text-xs font-extrabold text-[#1e293b] truncate uppercase">
                 {username || "User"}
               </p>
-              <span className="text-[10px] font-bold uppercase tracking-wider text-[#3b82f6]">
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#10b981]">
                 {userRole === "admin" ? "Admin" : "Member"}
               </span>
             </div>
@@ -218,10 +218,10 @@ export default function AdminLayout({ children, darkMode, toggleDarkMode }) {
           <div className="fixed inset-y-0 left-0 flex w-72 flex-col bg-white shadow-2xl z-50">
             <div className="flex h-16 items-center justify-between border-b border-[#e8ecf4] px-5">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-2xl bg-[#3b82f6] flex items-center justify-center text-white font-black">
+                <div className="h-9 w-9 rounded-2xl bg-[#10b981] flex items-center justify-center text-white font-black">
                   P
                 </div>
-                <span className="text-base font-black text-[#1e293b]">POSSH Town</span>
+                <span className="text-base font-black text-[#1e293b]">Sales Check List Pasmin</span>
               </div>
               <button onClick={() => setIsMobileMenuOpen(false)} className="text-slate-400 hover:text-slate-700 p-1">
                 ✕
@@ -256,12 +256,12 @@ export default function AdminLayout({ children, darkMode, toggleDarkMode }) {
             </nav>
             <div className="border-t border-[#f1f5f9] p-4 space-y-2">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-xl bg-[#3b82f6] flex items-center justify-center text-white font-bold text-xs">
+                <div className="h-9 w-9 rounded-xl bg-[#10b981] flex items-center justify-center text-white font-bold text-xs">
                   {username ? username.charAt(0).toUpperCase() : 'U'}
                 </div>
                 <div>
                   <p className="text-xs font-bold text-slate-800 uppercase">{username}</p>
-                  <p className="text-[10px] text-[#3b82f6] uppercase font-bold">{userRole}</p>
+                  <p className="text-[10px] text-[#10b981] uppercase font-bold">{userRole}</p>
                 </div>
               </div>
               <button 
@@ -293,8 +293,8 @@ export default function AdminLayout({ children, darkMode, toggleDarkMode }) {
           </div>
           <div className="flex items-center gap-3">
             {/* Date Pill like the reference image */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-[#dbeafe] text-[#2563eb] text-xs font-bold shadow-xs">
-              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#3b82f6]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-white border border-[#d1fae5] text-[#059669] text-xs font-bold shadow-xs">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 text-[#10b981]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
               </svg>
               <span>{new Date().toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric', year: 'numeric' })}</span>

@@ -271,7 +271,7 @@ const UserTasks = () => {
                       task.completed
                         ? "border-l-green-500"
                         : selectedTasks.includes(task.id)
-                          ? "border-l-blue-500"
+                          ? "border-l-emerald-500"
                           : "border-l-gray-300"
                     } transition-all hover:shadow-md`}
                   >

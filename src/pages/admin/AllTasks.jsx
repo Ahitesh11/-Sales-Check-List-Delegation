@@ -4,7 +4,7 @@ import AdminLayout from "../../components/layout/AdminLayout"
 
 const AllTasks = () => {
   // Google Sheets configuration
-  const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec"
+  const SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL
   const SHEET_NAME = "DATA"
   const SHEET_ID = "1hlFNmLJ_qY7LMpN0pP-N3KWdf0_JRwFvfqWjjLyCDb8" // Your specific sheet ID
 
@@ -511,7 +511,7 @@ const AllTasks = () => {
   if (isLoading && currentPage === 1) {
     return (
       <div className="flex justify-center items-center h-screen">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-emerald-500"></div>
       </div>
     )
   }
@@ -525,7 +525,7 @@ const AllTasks = () => {
           <p className="text-red-500 text-xl mb-4">{error}</p>
           <button 
             onClick={() => window.location.reload()}
-            className="px-4 py-2 bg-blue-600 text-white rounded-md"
+            className="px-4 py-2 bg-emerald-600 text-white rounded-md"
           >
             Try Again
           </button>
@@ -540,11 +540,11 @@ const AllTasks = () => {
         {/* Enhanced Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg">
               <ListTodo className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
                 {isAdmin ? "Task Explorer" : "My Task Board"}
               </h1>
               <p className="text-sm text-slate-600 mt-1">
@@ -558,7 +558,7 @@ const AllTasks = () => {
             disabled={isSubmitting || selectedTasks.length === 0}
             className={`flex items-center gap-2 rounded-xl py-3 px-6 text-white font-semibold transition-all duration-300 shadow-md hover:shadow-lg ${isSubmitting || selectedTasks.length === 0
                 ? "bg-slate-300 cursor-not-allowed"
-                : "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                : "bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800"
               }`}
           >
             {isSubmitting ? (
@@ -574,7 +574,7 @@ const AllTasks = () => {
         <div className="rounded-2xl border border-slate-200 shadow-lg bg-white overflow-hidden">
           <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 border-b border-slate-200 flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2 text-slate-700 font-semibold mr-2">
-              <Filter className="h-4 w-4 text-blue-600" />
+              <Filter className="h-4 w-4 text-emerald-600" />
               <span>Filters</span>
             </div>
             
@@ -585,7 +585,7 @@ const AllTasks = () => {
                 placeholder="Search by description, name, or firm..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
               />
             </div>
 
@@ -593,7 +593,7 @@ const AllTasks = () => {
               <select
                 value={filterStatus}
                 onChange={(e) => setFilterStatus(e.target.value)}
-                className="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 focus:border-blue-500 transition-all outline-none"
+                className="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 focus:border-emerald-500 transition-all outline-none"
               >
                 <option value="all">All Statuses</option>
                 <option value="pending">Pending</option>
@@ -604,7 +604,7 @@ const AllTasks = () => {
               <select
                 value={filterFrequency}
                 onChange={(e) => setFilterFrequency(e.target.value)}
-                className="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 focus:border-blue-500 transition-all outline-none"
+                className="px-4 py-2 bg-white border border-slate-300 rounded-lg text-sm font-medium text-slate-700 focus:border-emerald-500 transition-all outline-none"
               >
                 <option value="all">All Frequencies</option>
                 <option value="daily">Daily</option>
@@ -624,7 +624,7 @@ const AllTasks = () => {
                       type="checkbox"
                       checked={selectedTasks.length === filteredPaginatedTasks.length && filteredPaginatedTasks.length > 0}
                       onChange={toggleAllTasks}
-                      className="h-6 w-6 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer"
+                      className="h-6 w-6 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 transition-all cursor-pointer"
                     />
                   </th>
                   {tableHeaders.map((header) => (
@@ -651,14 +651,14 @@ const AllTasks = () => {
                       <tr
                         key={task._id}
                         ref={index === filteredPaginatedTasks.length - 1 ? lastTaskElementRef : null}
-                        className={`group transition-all duration-200 hover:bg-blue-50/30 ${isSelected ? "bg-blue-50/50" : ""}`}
+                        className={`group transition-all duration-200 hover:bg-emerald-50/30 ${isSelected ? "bg-emerald-50/50" : ""}`}
                       >
                         <td className="p-5">
                           <input
                             type="checkbox"
                             checked={isSelected}
                             onChange={() => toggleTaskSelection(task._id)}
-                            className="h-6 w-6 rounded border-slate-300 text-blue-600 focus:ring-blue-500 transition-all cursor-pointer"
+                            className="h-6 w-6 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500 transition-all cursor-pointer"
                           />
                         </td>
                         {tableHeaders.map((header) => (
@@ -676,12 +676,12 @@ const AllTasks = () => {
                         <td className="p-4">
                           {isSelected ? (
                             <div className="relative group/input">
-                              <FileText className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within/input:text-blue-500 transition-colors" />
+                              <FileText className="absolute left-2.5 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400 group-focus-within/input:text-emerald-500 transition-colors" />
                               <input
                                 type="text"
                                 value={selectedColumnValues[task._id] || ''}
                                 onChange={(e) => handleColumnOChange(task._id, e.target.value)}
-                                className="w-full pl-9 pr-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/10 transition-all"
+                                className="w-full pl-9 pr-3 py-1.5 bg-white border border-slate-200 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/10 transition-all"
                                 placeholder="Enter remarks..."
                               />
                             </div>
@@ -712,7 +712,7 @@ const AllTasks = () => {
                               <label
                                 htmlFor={`file-${task._id}`}
                                 className={`p-2.5 rounded-xl transition-all duration-200 flex items-center justify-center ${isSelected
-                                    ? "bg-slate-100 text-slate-600 hover:bg-blue-600 hover:text-white cursor-pointer shadow-sm"
+                                    ? "bg-slate-100 text-slate-600 hover:bg-emerald-600 hover:text-white cursor-pointer shadow-sm"
                                     : "bg-slate-50 text-slate-300 cursor-not-allowed"
                                   }`}
                                 title="Upload Evidence"
@@ -747,7 +747,7 @@ const AllTasks = () => {
           {isLoading && (
             <div className="flex justify-center items-center py-8 bg-slate-50/50">
               <div className="flex items-center gap-3">
-                <div className="animate-spin rounded-full h-5 w-5 border-2 border-blue-500 border-t-transparent"></div>
+                <div className="animate-spin rounded-full h-5 w-5 border-2 border-emerald-500 border-t-transparent"></div>
                 <span className="text-sm font-medium text-slate-600">Loading more tasks...</span>
               </div>
             </div>

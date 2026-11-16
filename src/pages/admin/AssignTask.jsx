@@ -58,10 +58,10 @@ const CalendarComponent = ({ date, onChange, onClose }) => {
           type="button"
           onClick={() => handleDateClick(day)}
           className={`h-9 w-9 rounded-lg flex items-center justify-center text-sm font-medium transition-all duration-200 ${isSelected
-            ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white shadow-md scale-105"
+            ? "bg-gradient-to-br from-emerald-600 to-emerald-700 text-white shadow-md scale-105"
             : isToday
-              ? "bg-blue-100 text-blue-700 border-2 border-blue-300"
-              : "hover:bg-blue-50 text-slate-700 hover:text-blue-600"
+              ? "bg-emerald-100 text-emerald-700 border-2 border-emerald-300"
+              : "hover:bg-emerald-50 text-slate-700 hover:text-emerald-600"
             }`}
         >
           {day}
@@ -90,7 +90,7 @@ const CalendarComponent = ({ date, onChange, onClose }) => {
         <button
           type="button"
           onClick={prevMonth}
-          className="p-2 hover:bg-blue-50 rounded-lg transition-colors text-slate-600 hover:text-blue-600"
+          className="p-2 hover:bg-emerald-50 rounded-lg transition-colors text-slate-600 hover:text-emerald-600"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
@@ -103,7 +103,7 @@ const CalendarComponent = ({ date, onChange, onClose }) => {
         <button
           type="button"
           onClick={nextMonth}
-          className="p-2 hover:bg-blue-50 rounded-lg transition-colors text-slate-600 hover:text-blue-600"
+          className="p-2 hover:bg-emerald-50 rounded-lg transition-colors text-slate-600 hover:text-emerald-600"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
@@ -200,7 +200,7 @@ export default function AssignTask() {
 
   const fetchMasterSheetOptions = async () => {
     try {
-      const masterSheetId = "1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms";
+      const masterSheetId = import.meta.env.VITE_SHEET_ID;
       const masterSheetName = "Main";
 
       const url = `https://docs.google.com/spreadsheets/d/${masterSheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(
@@ -266,7 +266,7 @@ export default function AssignTask() {
 
   const getLastTaskId = async (sheetName) => {
     try {
-      const url = `https://docs.google.com/spreadsheets/d/1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(
+      const url = `https://docs.google.com/spreadsheets/d/${import.meta.env.VITE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(
         sheetName
       )}`;
 
@@ -315,7 +315,7 @@ export default function AssignTask() {
 
   const fetchWorkingDays = async () => {
     try {
-      const sheetId = "1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms";
+      const sheetId = import.meta.env.VITE_SHEET_ID;
       const sheetName = "Working Day Calendar";
 
       const url = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(
@@ -699,7 +699,7 @@ export default function AssignTask() {
       formPayload.append("rowData", JSON.stringify(tasksData));
 
       await fetch(
-        "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec",
+        import.meta.env.VITE_APPS_SCRIPT_URL,
         {
           method: "POST",
           body: formPayload,
@@ -748,11 +748,11 @@ export default function AssignTask() {
         {/* Enhanced Header */}
         <div className="mb-10">
           <div className="flex items-center gap-4 mb-2">
-            <div className="p-4 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl shadow-xl">
+            <div className="p-4 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-2xl shadow-xl">
               <Sparkles className="h-7 w-7 text-white" />
             </div>
             <div>
-              <h1 className="text-4xl font-black tracking-tight bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+              <h1 className="text-4xl font-black tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
                 Assign New Task
               </h1>
               <p className="text-base font-medium text-slate-600 mt-1">Create and schedule tasks for your team members</p>
@@ -766,8 +766,8 @@ export default function AssignTask() {
             {/* Form Header */}
             <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-6 border-b border-slate-200">
               <div className="flex items-center gap-3">
-                <div className="p-2 bg-blue-100 rounded-lg">
-                  <FileText className="h-5 w-5 text-blue-600" />
+                <div className="p-2 bg-emerald-100 rounded-lg">
+                  <FileText className="h-5 w-5 text-emerald-600" />
                 </div>
                 <div>
                   <h2 className="text-xl font-semibold text-slate-900">Task Details</h2>
@@ -778,12 +778,12 @@ export default function AssignTask() {
 
             <div className="p-6 space-y-8">
               {/* Task Type Selection */}
-              <div className="space-y-3 p-5 bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl border border-blue-200">
+              <div className="space-y-3 p-5 bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-xl border border-emerald-200">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="p-1.5 bg-blue-500 rounded-lg">
+                  <div className="p-1.5 bg-emerald-500 rounded-lg">
                     <CheckCircle2 className="h-4 w-4 text-white" />
                   </div>
-                  <label className="text-sm font-semibold text-blue-900 uppercase tracking-wide">
+                  <label className="text-sm font-semibold text-emerald-900 uppercase tracking-wide">
                     Assignment Mode
                   </label>
                 </div>
@@ -792,11 +792,11 @@ export default function AssignTask() {
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, taskType: "checklist" }))}
                     className={`group relative flex flex-col items-center justify-center py-4 px-4 rounded-xl border-2 transition-all duration-200 ${formData.taskType === "checklist"
-                      ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white border-blue-600 shadow-lg scale-[1.02]"
-                      : "bg-white text-blue-700 border-slate-200 hover:border-blue-400 hover:bg-blue-50 hover:shadow-md"
+                      ? "bg-gradient-to-br from-emerald-600 to-emerald-700 text-white border-emerald-600 shadow-lg scale-[1.02]"
+                      : "bg-white text-emerald-700 border-slate-200 hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-md"
                       }`}
                   >
-                    <Clock className={`h-6 w-6 mb-2 ${formData.taskType === "checklist" ? "text-white" : "text-blue-600"}`} />
+                    <Clock className={`h-6 w-6 mb-2 ${formData.taskType === "checklist" ? "text-white" : "text-emerald-600"}`} />
                     <span className="font-bold text-base">Checklist</span>
                     <span className="text-xs opacity-90 mt-1">Recurring tasks</span>
                   </button>
@@ -804,11 +804,11 @@ export default function AssignTask() {
                     type="button"
                     onClick={() => setFormData(prev => ({ ...prev, taskType: "delegation", frequency: "one-time" }))}
                     className={`group relative flex flex-col items-center justify-center py-4 px-4 rounded-xl border-2 transition-all duration-200 ${formData.taskType === "delegation"
-                      ? "bg-gradient-to-br from-blue-600 to-blue-700 text-white border-blue-600 shadow-lg scale-[1.02]"
-                      : "bg-white text-blue-700 border-slate-200 hover:border-blue-400 hover:bg-blue-50 hover:shadow-md"
+                      ? "bg-gradient-to-br from-emerald-600 to-emerald-700 text-white border-emerald-600 shadow-lg scale-[1.02]"
+                      : "bg-white text-emerald-700 border-slate-200 hover:border-emerald-400 hover:bg-emerald-50 hover:shadow-md"
                       }`}
                   >
-                    <AlertCircle className={`h-6 w-6 mb-2 ${formData.taskType === "delegation" ? "text-white" : "text-blue-600"}`} />
+                    <AlertCircle className={`h-6 w-6 mb-2 ${formData.taskType === "delegation" ? "text-white" : "text-emerald-600"}`} />
                     <span className="font-bold text-base">Delegation</span>
                     <span className="text-xs opacity-90 mt-1">One-time priority</span>
                   </button>
@@ -819,7 +819,7 @@ export default function AssignTask() {
                 {/* Department Name */}
                 <div className="space-y-2">
                   <label htmlFor="department" className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                    <Users className="h-4 w-4 text-blue-600" />
+                    <Users className="h-4 w-4 text-emerald-600" />
                     Firm Name
                   </label>
                   <select
@@ -828,7 +828,7 @@ export default function AssignTask() {
                     value={formData.department}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                   >
                     <option value="">Select Department</option>
                     {departmentOptions.map((dept, index) => (
@@ -842,7 +842,7 @@ export default function AssignTask() {
                 {/* Given By */}
                 <div className="space-y-2">
                   <label htmlFor="givenBy" className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                    <Users className="h-4 w-4 text-blue-600" />
+                    <Users className="h-4 w-4 text-emerald-600" />
                     Given By
                   </label>
                   <select
@@ -851,7 +851,7 @@ export default function AssignTask() {
                     value={formData.givenBy}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                   >
                     <option value="">Select Given By</option>
                     {givenByOptions.map((person, index) => (
@@ -865,7 +865,7 @@ export default function AssignTask() {
                 {/* Doer's Name */}
                 <div className="space-y-2">
                   <label htmlFor="doer" className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                    <Users className="h-4 w-4 text-blue-600" />
+                    <Users className="h-4 w-4 text-emerald-600" />
                     Doer's Name
                   </label>
                   <select
@@ -874,7 +874,7 @@ export default function AssignTask() {
                     value={formData.doer}
                     onChange={handleChange}
                     required
-                    className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                   >
                     <option value="">Select Doer</option>
                     {doerOptions.map((doer, index) => (
@@ -888,14 +888,14 @@ export default function AssignTask() {
                 {/* Start Date */}
                 <div className="space-y-2">
                   <label className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                    <Calendar className="h-4 w-4 text-blue-600" />
+                    <Calendar className="h-4 w-4 text-emerald-600" />
                     Planned Date
                   </label>
                   <div className="relative">
                     <button
                       type="button"
                       onClick={() => setShowCalendar(!showCalendar)}
-                      className="w-full flex items-center justify-between rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white hover:border-blue-400 transition-all shadow-sm"
+                      className="w-full flex items-center justify-between rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white hover:border-emerald-400 transition-all shadow-sm"
                     >
                       <span className={date ? "text-slate-900 font-medium" : "text-slate-500"}>
                         {date ? getFormattedDate(date) : "Select a date"}
@@ -918,7 +918,7 @@ export default function AssignTask() {
                 {formData.taskType === "checklist" && (
                   <div className="space-y-2">
                     <label htmlFor="frequency" className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                      <Clock className="h-4 w-4 text-blue-600" />
+                      <Clock className="h-4 w-4 text-emerald-600" />
                       Frequency
                     </label>
                     <select
@@ -926,7 +926,7 @@ export default function AssignTask() {
                       name="frequency"
                       value={formData.frequency}
                       onChange={handleChange}
-                      className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                      className="w-full rounded-lg border border-slate-300 px-4 py-3 text-sm bg-white focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                     >
                       {frequencies.map((freq) => (
                         <option key={freq.value} value={freq.value}>
@@ -940,7 +940,7 @@ export default function AssignTask() {
                 {/* Task Description - Full Width */}
                 <div className="space-y-2 md:col-span-2">
                   <label htmlFor="description" className="flex items-center gap-2 text-sm font-semibold text-slate-700">
-                    <FileText className="h-4 w-4 text-blue-600" />
+                    <FileText className="h-4 w-4 text-emerald-600" />
                     Task Description
                   </label>
                   <textarea
@@ -950,7 +950,7 @@ export default function AssignTask() {
                     onChange={handleChange}
                     required
                     rows={4}
-                    className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-5 py-4 text-sm focus:bg-white focus:border-blue-500 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all resize-none shadow-inner"
+                    className="w-full rounded-2xl border border-slate-200 bg-slate-50/50 px-5 py-4 text-sm focus:bg-white focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-500/10 transition-all resize-none shadow-inner"
                     placeholder="Describe the task in detail..."
                   />
                 </div>
@@ -960,15 +960,15 @@ export default function AssignTask() {
               {formData.taskType === "checklist" && (
                 <div className="space-y-4 pt-4 border-t border-slate-200">
                   <h3 className="text-base font-semibold text-slate-900 flex items-center gap-2">
-                    <Sparkles className="h-5 w-5 text-blue-600" />
+                    <Sparkles className="h-5 w-5 text-emerald-600" />
                     Additional Options
                   </h3>
 
                   <div className="space-y-3">
                     {/* Enable Reminders */}
-                    <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-blue-50 to-blue-100 border border-blue-200">
+                    <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-r from-emerald-50 to-emerald-100 border border-emerald-200">
                       <div className="flex items-center gap-3">
-                        <div className="p-2 bg-blue-500 rounded-lg">
+                        <div className="p-2 bg-emerald-500 rounded-lg">
                           <BellRing className="h-5 w-5 text-white" />
                         </div>
                         <div>
@@ -986,7 +986,7 @@ export default function AssignTask() {
                           onChange={(e) => handleSwitchChange("enableReminders", e)}
                           className="sr-only peer"
                         />
-                        <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-blue-500/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-blue-600 shadow-inner"></div>
+                        <div className="w-11 h-6 bg-slate-300 peer-focus:outline-none peer-focus:ring-2 peer-focus:ring-emerald-500/50 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600 shadow-inner"></div>
                       </label>
                     </div>
 
@@ -1023,7 +1023,7 @@ export default function AssignTask() {
                 <button
                   type="button"
                   onClick={generateTasks}
-                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-slate-100 to-slate-200 border border-slate-300 py-3.5 px-4 text-slate-700 font-semibold hover:from-blue-50 hover:to-blue-100 hover:border-blue-300 hover:text-blue-700 transition-all shadow-sm hover:shadow-md"
+                  className="w-full flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-slate-100 to-slate-200 border border-slate-300 py-3.5 px-4 text-slate-700 font-semibold hover:from-emerald-50 hover:to-emerald-100 hover:border-emerald-300 hover:text-emerald-700 transition-all shadow-sm hover:shadow-md"
                 >
                   <Sparkles className="h-5 w-5" />
                   Preview Generated Tasks
@@ -1032,22 +1032,22 @@ export default function AssignTask() {
 
               {/* Generated Tasks Accordion */}
               {generatedTasks.length > 0 && (
-                <div className="rounded-xl border-2 border-blue-200 overflow-hidden shadow-sm">
+                <div className="rounded-xl border-2 border-emerald-200 overflow-hidden shadow-sm">
                   <button
                     type="button"
                     onClick={() => setAccordionOpen(!accordionOpen)}
-                    className="w-full flex justify-between items-center p-4 bg-gradient-to-r from-blue-50 to-blue-100 hover:from-blue-100 hover:to-blue-200 transition-all"
+                    className="w-full flex justify-between items-center p-4 bg-gradient-to-r from-emerald-50 to-emerald-100 hover:from-emerald-100 hover:to-emerald-200 transition-all"
                   >
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-blue-500 rounded-lg">
+                      <div className="p-2 bg-emerald-500 rounded-lg">
                         <CheckCircle2 className="h-5 w-5 text-white" />
                       </div>
-                      <span className="font-semibold text-blue-900">
+                      <span className="font-semibold text-emerald-900">
                         {generatedTasks.length} Tasks Generated
                       </span>
                     </div>
                     <svg
-                      className={`w-5 h-5 text-blue-700 transition-transform duration-200 ${accordionOpen ? "rotate-180" : ""
+                      className={`w-5 h-5 text-emerald-700 transition-transform duration-200 ${accordionOpen ? "rotate-180" : ""
                         }`}
                       fill="none"
                       stroke="currentColor"
@@ -1063,12 +1063,12 @@ export default function AssignTask() {
                   </button>
 
                   {accordionOpen && (
-                    <div className="p-4 bg-white border-t-2 border-blue-200">
+                    <div className="p-4 bg-white border-t-2 border-emerald-200">
                       <div className="max-h-80 overflow-y-auto space-y-3 pr-2">
                         {generatedTasks.slice(0, 20).map((task, index) => (
                           <div
                             key={index}
-                            className="p-4 border border-blue-200 rounded-xl bg-gradient-to-r from-blue-50/50 to-white hover:shadow-md transition-all"
+                            className="p-4 border border-emerald-200 rounded-xl bg-gradient-to-r from-emerald-50/50 to-white hover:shadow-md transition-all"
                           >
                             <div className="flex items-start justify-between gap-3">
                               <div className="flex-1">
@@ -1082,7 +1082,7 @@ export default function AssignTask() {
                               </div>
                               <div className="flex gap-2">
                                 {task.enableReminders && (
-                                  <span className="inline-flex items-center gap-1 text-xs bg-blue-100 text-blue-700 px-2 py-1 rounded-lg font-medium border border-blue-200">
+                                  <span className="inline-flex items-center gap-1 text-xs bg-emerald-100 text-emerald-700 px-2 py-1 rounded-lg font-medium border border-emerald-200">
                                     <BellRing className="h-3 w-3" />
                                     Reminders
                                   </span>
@@ -1135,7 +1135,7 @@ export default function AssignTask() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-blue-600 to-blue-700 py-2.5 px-6 text-white font-semibold hover:from-blue-700 hover:to-blue-800 shadow-md hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex items-center gap-2 rounded-lg bg-gradient-to-r from-emerald-600 to-emerald-700 py-2.5 px-6 text-white font-semibold hover:from-emerald-700 hover:to-emerald-800 shadow-md hover:shadow-lg transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isSubmitting ? (
                   <>

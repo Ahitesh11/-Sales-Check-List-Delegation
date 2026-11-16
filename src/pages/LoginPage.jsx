@@ -34,13 +34,13 @@ const LoginPage = () => {
   // Fetch master data on component mount
   useEffect(() => {
     const fetchMasterData = async () => {
-      const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec"
+      const SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL
 
       try {
         setIsDataLoading(true)
 
         // Get the spreadsheet ID from your Apps Script
-        const SPREADSHEET_ID = "1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms"
+        const SPREADSHEET_ID = import.meta.env.VITE_SHEET_ID
 
         // Construct the URL to read the sheet data directly
         // Reading from "Main" sheet: A=Firm, B=Given By, C=Doer's Name(username), D=password, E=Role
@@ -239,14 +239,14 @@ const LoginPage = () => {
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-blue-50/40 to-indigo-50/30 p-4 font-sans">
+    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-slate-50 via-emerald-50/40 to-teal-50/30 p-4 font-sans">
       <div className="w-full max-w-md shadow-xl shadow-slate-200/60 border border-slate-200/80 rounded-2xl bg-white overflow-hidden transition-all duration-300">
         <div className="p-8 text-center border-b border-slate-100 bg-gradient-to-b from-white to-slate-50/50">
-          <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-tr from-blue-600 to-indigo-600 text-white shadow-lg shadow-blue-500/25 mb-4">
+          <div className="inline-flex items-center justify-center h-14 w-14 rounded-2xl bg-gradient-to-tr from-emerald-600 to-teal-600 text-white shadow-lg shadow-emerald-500/25 mb-4">
             <i className="fas fa-clipboard-list text-2xl"></i>
           </div>
-          <h2 className="text-2xl font-black text-slate-900 tracking-tight">Possh Town</h2>
-          <p className="text-xs font-bold text-blue-600 uppercase tracking-widest mt-1">Checklist & Delegation</p>
+          <h2 className="text-2xl font-black text-slate-900 tracking-tight">Sales Check List Pasmin</h2>
+          <p className="text-xs font-bold text-emerald-600 uppercase tracking-widest mt-1">Checklist & Delegation</p>
           <p className="text-xs text-slate-500 mt-2">Sign in to manage your delegations and checklists</p>
         </div>
 
@@ -263,11 +263,11 @@ const LoginPage = () => {
                 id="username"
                 name="username"
                 type="text"
-                placeholder="e.g. mayank agarwal"
+                placeholder=""
                 required
                 value={formData.username}
                 onChange={handleChange}
-                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all font-medium text-slate-800"
+                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all font-medium text-slate-800"
               />
             </div>
           </div>
@@ -288,7 +288,7 @@ const LoginPage = () => {
                 required
                 value={formData.password}
                 onChange={handleChange}
-                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 focus:border-blue-600 transition-all font-medium text-slate-800"
+                className="w-full pl-10 pr-3.5 py-2.5 text-sm bg-slate-50 border border-slate-200 rounded-xl focus:bg-white focus:outline-none focus:ring-2 focus:ring-emerald-500/20 focus:border-emerald-600 transition-all font-medium text-slate-800"
               />
             </div>
           </div>
@@ -296,7 +296,7 @@ const LoginPage = () => {
           <div className="pt-2">
             <button
               type="submit"
-              className="w-full py-3 px-4 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white rounded-xl text-sm font-bold shadow-md shadow-blue-500/25 hover:shadow-lg hover:shadow-blue-500/35 transition-all duration-200 disabled:opacity-50 cursor-pointer"
+              className="w-full py-3 px-4 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-xl text-sm font-bold shadow-md shadow-emerald-500/25 hover:shadow-lg hover:shadow-emerald-500/35 transition-all duration-200 disabled:opacity-50 cursor-pointer"
               disabled={isLoginLoading || isDataLoading}
             >
               {isLoginLoading ? (

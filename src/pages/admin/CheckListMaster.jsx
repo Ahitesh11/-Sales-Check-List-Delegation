@@ -32,7 +32,7 @@ const CheckListMaster = () => {
 
   const fetchMasterSheetColumnA = async () => {
     try {
-      const response = await fetch(`https://docs.google.com/spreadsheets/d/1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms/gviz/tq?tqx=out:json&sheet=MASTER`)
+      const response = await fetch(`https://docs.google.com/spreadsheets/d/${import.meta.env.VITE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=MASTER`)
       if (!response.ok) throw new Error(`Failed to fetch master sheet`)
       
       const text = await response.text()
@@ -71,7 +71,7 @@ const CheckListMaster = () => {
       
       await Promise.all(sheetNames.map(async (sheetName) => {
         try {
-          const response = await fetch(`https://docs.google.com/spreadsheets/d/1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms/gviz/tq?tqx=out:json&sheet=${sheetName}`)
+          const response = await fetch(`https://docs.google.com/spreadsheets/d/${import.meta.env.VITE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheetName}`)
           
           if (!response.ok) return
           
@@ -219,9 +219,9 @@ const CheckListMaster = () => {
     const f = frequency.toLowerCase()
     switch (f) {
       case "one-time": return "bg-slate-100 text-slate-700"
-      case "daily": return "bg-blue-100 text-blue-700"
-      case "weekly": return "bg-purple-100 text-purple-700"
-      case "fortnightly": return "bg-indigo-100 text-indigo-700"
+      case "daily": return "bg-emerald-100 text-emerald-700"
+      case "weekly": return "bg-teal-100 text-teal-700"
+      case "fortnightly": return "bg-teal-100 text-teal-700"
       case "monthly": return "bg-orange-100 text-orange-700"
       case "quarterly": return "bg-amber-100 text-amber-700"
       case "yearly": return "bg-emerald-100 text-emerald-700"
@@ -242,7 +242,7 @@ const CheckListMaster = () => {
             disabled={isLoading}
             className="flex items-center gap-2 px-4 py-2 bg-white border border-slate-200 text-slate-700 rounded-lg hover:bg-slate-50 disabled:opacity-50 transition-colors shadow-sm font-medium text-sm"
           >
-            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin text-blue-600' : ''}`} />
+            <RefreshCw className={`h-4 w-4 ${isLoading ? 'animate-spin text-emerald-600' : ''}`} />
             Refresh Data
           </button>
         </div>
@@ -259,7 +259,7 @@ const CheckListMaster = () => {
                   placeholder="Search tasks by ID, Title, User or Department..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm shadow-sm"
+                  className="w-full pl-10 pr-4 py-2.5 bg-white border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent text-sm shadow-sm"
                 />
               </div>
               
@@ -267,7 +267,7 @@ const CheckListMaster = () => {
                 <select 
                   value={filterDepartment}
                   onChange={(e) => setFilterDepartment(e.target.value)}
-                  className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 shadow-sm"
+                  className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2.5 shadow-sm"
                 >
                   <option value="all">All Departments</option>
                   {filterOptions.departments.map(dept => (
@@ -278,7 +278,7 @@ const CheckListMaster = () => {
                 <select 
                   value={filterGivenBy}
                   onChange={(e) => setFilterGivenBy(e.target.value)}
-                  className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 shadow-sm"
+                  className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2.5 shadow-sm"
                 >
                   <option value="all">All Given By</option>
                   {filterOptions.givenBys.map(user => (
@@ -289,7 +289,7 @@ const CheckListMaster = () => {
                 <select 
                   value={filterAssignedTo}
                   onChange={(e) => setFilterAssignedTo(e.target.value)}
-                  className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 shadow-sm"
+                  className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2.5 shadow-sm"
                 >
                   <option value="all">All Assigned To</option>
                   {filterOptions.users.map(user => (
@@ -300,7 +300,7 @@ const CheckListMaster = () => {
                 <select 
                   value={filterFrequency}
                   onChange={(e) => setFilterFrequency(e.target.value)}
-                  className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 p-2.5 shadow-sm"
+                  className="bg-white border border-slate-200 text-slate-700 text-sm rounded-lg focus:ring-emerald-500 focus:border-emerald-500 p-2.5 shadow-sm"
                 >
                   <option value="all">All Frequencies</option>
                   {filterOptions.frequencies.map(freq => (
@@ -314,7 +314,7 @@ const CheckListMaster = () => {
           <div className="overflow-x-auto">
             {isLoading ? (
               <div className="flex flex-col items-center justify-center py-20">
-                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-600 mb-4"></div>
+                <div className="animate-spin rounded-full h-10 w-10 border-b-2 border-emerald-600 mb-4"></div>
                 <p className="text-slate-500 font-medium text-sm">Loading and sorting unique tasks...</p>
               </div>
             ) : error ? (
@@ -346,7 +346,7 @@ const CheckListMaster = () => {
                   {filteredTasks.map((task) => (
                     <tr key={task.id} className="hover:bg-slate-50/70 transition-colors">
                       <td className="px-6 py-4 whitespace-nowrap">
-                        <span className="font-mono text-xs font-medium text-blue-600 bg-blue-50 px-2 py-1 rounded-md border border-blue-100">{task.id}</span>
+                        <span className="font-mono text-xs font-medium text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100">{task.id}</span>
                       </td>
                       <td className="px-6 py-4">
                         <div className="text-sm font-medium text-slate-800 line-clamp-2 max-w-md">{task.title}</div>

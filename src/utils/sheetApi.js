@@ -1,7 +1,7 @@
 ﻿// Centralized Google Sheets Data Fetch Utility
-export const SPREADSHEET_ID = "1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms"
+export const SPREADSHEET_ID = import.meta.env.VITE_SHEET_ID
 export const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec"
+  import.meta.env.VITE_APPS_SCRIPT_URL
 
 /**
  * Fetch sheet data using Google Visualization (GViz) API for lightning-fast (0.2s) response.

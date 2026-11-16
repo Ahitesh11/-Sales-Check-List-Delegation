@@ -6,7 +6,7 @@ import AdminLayout from "../../components/layout/AdminLayout"
 import { fetchSheetDataFast } from "../../utils/sheetApi"
 
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec"
+  import.meta.env.VITE_APPS_SCRIPT_URL
 
 const COMPANIES = [
   { id: "checklist", name: "Check List", SHEET_NAME: "Check List", DRIVE_FOLDER_ID: "1Sb2UEvIp37owQISBjg4BmQuklqKAi7Mr" },
@@ -322,11 +322,11 @@ function CompanyTaskContent({ config }) {
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
+          <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg">
             <Sparkles className="h-6 w-6 text-white" />
           </div>
           <div>
-            <h2 className="text-2xl font-bold text-blue-700">
+            <h2 className="text-2xl font-bold text-emerald-700">
               {showHistory ? `${config.name} History` : `${config.name} Tasks`}
             </h2>
             <p className="text-sm text-slate-500 mt-0.5">
@@ -341,7 +341,7 @@ function CompanyTaskContent({ config }) {
           </button>
           {!showHistory && (
             <button onClick={handleSubmit} disabled={selectedCount===0||isSubmitting}
-              className={`flex items-center gap-2 rounded-xl py-2.5 px-5 text-white font-semibold transition-all shadow-md text-sm ${selectedCount===0||isSubmitting?"bg-slate-300 cursor-not-allowed":"bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"}`}>
+              className={`flex items-center gap-2 rounded-xl py-2.5 px-5 text-white font-semibold transition-all shadow-md text-sm ${selectedCount===0||isSubmitting?"bg-slate-300 cursor-not-allowed":"bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800"}`}>
               {isSubmitting ? <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"/> : <CheckCircle2 className="h-4 w-4"/>}
               <span>{isSubmitting ? "Processing..." : `Submit (${selectedCount})`}</span>
             </button>
@@ -353,24 +353,24 @@ function CompanyTaskContent({ config }) {
       <div className="rounded-2xl border border-slate-200 shadow-sm bg-white overflow-hidden">
         <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 border-b border-slate-200 flex flex-wrap items-center gap-4">
           <div className="flex items-center gap-2 text-slate-700 font-semibold">
-            <Filter className="h-4 w-4 text-blue-600"/>
+            <Filter className="h-4 w-4 text-emerald-600"/>
             <span className="text-sm">Filters</span>
           </div>
           <div className="flex-1 min-w-[180px] relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400"/>
             <input type="text" placeholder={showHistory?"Search history...":"Search tasks..."}
               value={searchTerm} onChange={e=>setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"/>
+              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"/>
           </div>
             {!showHistory && (
               <>
                 <select value={filterGivenBy} onChange={e=>setFilterGivenBy(e.target.value)}
-                  className="min-w-[130px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-slate-700">
+                  className="min-w-[130px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-slate-700">
                   <option value="">All Given By</option>
                   {givenByOptions.map(n=><option key={n} value={n}>{n}</option>)}
                 </select>
                 <select value={filterName} onChange={e=>setFilterName(e.target.value)}
-                  className="min-w-[130px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 text-slate-700">
+                  className="min-w-[130px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 text-slate-700">
                   <option value="">All Names</option>
                   {nameOptions.map(n=><option key={n} value={n}>{n}</option>)}
                 </select>
@@ -387,10 +387,10 @@ function CompanyTaskContent({ config }) {
             <div className="flex items-center gap-2">
               <Calendar className="h-4 w-4 text-slate-400"/>
               <input type="date" value={startDate} onChange={e=>setStartDate(e.target.value)}
-                className="border border-slate-300 rounded-lg text-sm py-2 px-3 focus:border-blue-500 outline-none"/>
+                className="border border-slate-300 rounded-lg text-sm py-2 px-3 focus:border-emerald-500 outline-none"/>
               <span className="text-slate-400 text-sm">to</span>
               <input type="date" value={endDate} onChange={e=>setEndDate(e.target.value)}
-                className="border border-slate-300 rounded-lg text-sm py-2 px-3 focus:border-blue-500 outline-none"/>
+                className="border border-slate-300 rounded-lg text-sm py-2 px-3 focus:border-emerald-500 outline-none"/>
             </div>
           )}
         </div>
@@ -400,7 +400,7 @@ function CompanyTaskContent({ config }) {
             <User className="h-4 w-4 text-slate-400"/>
             {getFilteredMembersList().map((m,i) => (
               <button key={i} onClick={()=>setSelectedMembers(p=>p.includes(m)?p.filter(x=>x!==m):[...p,m])}
-                className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${selectedMembers.includes(m)?"bg-blue-600 text-white":"bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>
+                className={`px-3 py-1 rounded-lg text-xs font-medium transition-all ${selectedMembers.includes(m)?"bg-emerald-600 text-white":"bg-slate-100 text-slate-600 hover:bg-slate-200"}`}>
                 {m}
               </button>
             ))}
@@ -423,7 +423,7 @@ function CompanyTaskContent({ config }) {
       {/* Table */}
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
         <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center gap-3">
-          <div className="p-2 bg-blue-100 rounded-lg"><FileText className="h-4 w-4 text-blue-600"/></div>
+          <div className="p-2 bg-emerald-100 rounded-lg"><FileText className="h-4 w-4 text-emerald-600"/></div>
           <div>
             <p className="text-sm font-bold text-slate-800">{showHistory?"Historical Submission Log":"Active Processing Queue"}</p>
             <p className="text-xs text-slate-500">{showHistory?`${filteredHistoryData.length} records`:`${filteredAccountData.length} pending items`}</p>
@@ -432,7 +432,7 @@ function CompanyTaskContent({ config }) {
 
         {loading ? (
           <div className="text-center py-10">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-3"/>
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500 mb-3"/>
             <p className="text-slate-500 text-sm">Loading {config.name} data...</p>
           </div>
         ) : error ? (
@@ -443,15 +443,15 @@ function CompanyTaskContent({ config }) {
           /* History Table */
           <>
             {/* Stats bar */}
-            <div className="p-4 bg-blue-50 border-b border-blue-100 flex flex-wrap gap-4">
+            <div className="p-4 bg-emerald-50 border-b border-emerald-100 flex flex-wrap gap-4">
               <div className="px-3 py-2 bg-white rounded-lg shadow-sm">
                 <p className="text-xs text-slate-500">Total Completed</p>
-                <p className="text-lg font-bold text-blue-600">{historyData.length}</p>
+                <p className="text-lg font-bold text-emerald-600">{historyData.length}</p>
               </div>
               {(selectedMembers.length>0||startDate||endDate||searchTerm) && (
                 <div className="px-3 py-2 bg-white rounded-lg shadow-sm">
                   <p className="text-xs text-slate-500">Filtered</p>
-                  <p className="text-lg font-bold text-blue-600">{filteredHistoryData.length}</p>
+                  <p className="text-lg font-bold text-emerald-600">{filteredHistoryData.length}</p>
                 </div>
               )}
             </div>
@@ -460,7 +460,7 @@ function CompanyTaskContent({ config }) {
                 <thead className="bg-gray-50">
                   <tr>
                     {["Task ID","Department","Given By","Name","Task Description","Task Start Date","Freq","Enable Reminders","Require Attachment","Actual Date","Status","Remarks","Attachment"].map(h=>(
-                      <th key={h} className={`px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${h==="Task Start Date"?"bg-yellow-50":h==="Actual Date"?"bg-green-50":h==="Status"?"bg-blue-50":h==="Remarks"?"bg-purple-50":""}`}>{h}</th>
+                      <th key={h} className={`px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider ${h==="Task Start Date"?"bg-yellow-50":h==="Actual Date"?"bg-green-50":h==="Status"?"bg-emerald-50":h==="Remarks"?"bg-teal-50":""}`}>{h}</th>
                     ))}
                   </tr>
                 </thead>
@@ -477,15 +477,15 @@ function CompanyTaskContent({ config }) {
                       <td className="px-4 py-3 whitespace-nowrap">{h["col8"]||"—"}</td>
                       <td className="px-4 py-3 whitespace-nowrap">{h["col9"]||"—"}</td>
                       <td className="px-4 py-3 whitespace-nowrap bg-green-50 font-medium">{h["col10"]||"—"}</td>
-                      <td className="px-4 py-3 whitespace-nowrap bg-blue-50">
+                      <td className="px-4 py-3 whitespace-nowrap bg-emerald-50">
                         <span className={`inline-flex px-2 py-0.5 text-xs font-semibold rounded-full ${h["col12"]==="Yes"?"bg-green-100 text-green-800":h["col12"]==="No"?"bg-red-100 text-red-800":"bg-gray-100 text-gray-800"}`}>
                           {h["col12"]||"—"}
                         </span>
                       </td>
-                      <td className="px-4 py-3 bg-purple-50 max-w-xs" title={h["col13"]}>{h["col13"]||"—"}</td>
+                      <td className="px-4 py-3 bg-teal-50 max-w-xs" title={h["col13"]}>{h["col13"]||"—"}</td>
                       <td className="px-4 py-3 whitespace-nowrap">
                         {h["col14"] ? (
-                          <a href={h["col14"]} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-blue-600 hover:underline text-xs">
+                          <a href={h["col14"]} target="_blank" rel="noopener noreferrer" className="flex items-center gap-1 text-emerald-600 hover:underline text-xs">
                             <img src={h["col14"]} alt="Attachment" className="h-7 w-7 object-cover rounded"/>View
                           </a>
                         ) : <span className="text-gray-400 text-xs">No attachment</span>}
@@ -505,7 +505,7 @@ function CompanyTaskContent({ config }) {
               <thead className="bg-gray-50">
                 <tr>
                   <th className="px-4 py-3">
-                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                    <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                       checked={filteredAccountData.length>0 && selectedItems.size===filteredAccountData.length}
                       onChange={handleSelectAll}/>
                   </th>
@@ -518,9 +518,9 @@ function CompanyTaskContent({ config }) {
                 {filteredAccountData.length>0 ? filteredAccountData.map(acc=>{
                   const isSel = selectedItems.has(acc._id)
                   return (
-                    <tr key={acc._id} className={`${isSel?"bg-blue-50/40":""} hover:bg-gray-50 transition-colors`}>
+                    <tr key={acc._id} className={`${isSel?"bg-emerald-50/40":""} hover:bg-gray-50 transition-colors`}>
                       <td className="px-4 py-3">
-                        <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                        <input type="checkbox" className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                           checked={isSel} onChange={e=>handleCheckboxClick(e,acc._id)}/>
                       </td>
                       <td className="px-4 py-3 whitespace-nowrap">{acc["col1"]||"—"}</td>
@@ -553,7 +553,7 @@ function CompanyTaskContent({ config }) {
                             <span className="text-xs text-green-600">{acc.image instanceof File?"Ready":"Uploaded"}</span>
                           </div>
                         ) : (
-                          <label className="flex items-center gap-1 cursor-pointer text-xs text-blue-600 hover:underline">
+                          <label className="flex items-center gap-1 cursor-pointer text-xs text-emerald-600 hover:underline">
                             <Upload className="h-4 w-4"/>
                             Upload
                             <input type="file" className="hidden" accept="image/*" disabled={!isSel} onChange={e=>handleImageUpload(acc._id,e)}/>
@@ -668,25 +668,25 @@ function AllCompaniesContent() {
       <div className="rounded-2xl border border-slate-200 bg-white overflow-hidden shadow-sm">
         <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-2 font-semibold text-slate-700">
-            <Filter className="h-4 w-4 text-blue-600"/><span className="text-sm">Filters</span>
+            <Filter className="h-4 w-4 text-emerald-600"/><span className="text-sm">Filters</span>
           </div>
           <div className="flex-1 min-w-[160px] relative">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-slate-400"/>
             <input type="text" placeholder="Search all companies..." value={searchTerm} onChange={e=>setSearchTerm(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"/>
+              className="w-full pl-9 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20"/>
           </div>
           <select value={filterCompany} onChange={e=>setFilterCompany(e.target.value)}
-            className="min-w-[120px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 text-slate-700">
+            className="min-w-[120px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 text-slate-700">
             <option value="">All Companies</option>
             {companyOptions.map(n=><option key={n} value={n}>{n}</option>)}
           </select>
           <select value={filterGivenBy} onChange={e=>setFilterGivenBy(e.target.value)}
-            className="min-w-[130px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 text-slate-700">
+            className="min-w-[130px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 text-slate-700">
             <option value="">All Given By</option>
             {givenByOptions.map(n=><option key={n} value={n}>{n}</option>)}
           </select>
           <select value={filterName} onChange={e=>setFilterName(e.target.value)}
-            className="min-w-[130px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 text-slate-700">
+            className="min-w-[130px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 text-slate-700">
             <option value="">All Names</option>
             {nameOptions.map(n=><option key={n} value={n}>{n}</option>)}
           </select>
@@ -702,7 +702,7 @@ function AllCompaniesContent() {
       {/* Table */}
       <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
         <div className="bg-slate-50 border-b border-slate-200 px-4 py-3 flex items-center gap-3">
-          <div className="p-2 bg-blue-100 rounded-lg"><FileText className="h-4 w-4 text-blue-600"/></div>
+          <div className="p-2 bg-emerald-100 rounded-lg"><FileText className="h-4 w-4 text-emerald-600"/></div>
           <div>
             <p className="text-sm font-bold text-slate-800">All Companies — Pending Tasks</p>
             <p className="text-xs text-slate-500">{filtered.length} tasks across all companies</p>
@@ -710,7 +710,7 @@ function AllCompaniesContent() {
         </div>
         {loading ? (
           <div className="text-center py-10">
-            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 mb-3"/>
+            <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500 mb-3"/>
             <p className="text-slate-500 text-sm">Loading all companies...</p>
           </div>
         ) : error ? (
@@ -729,7 +729,7 @@ function AllCompaniesContent() {
                 {filtered.length>0 ? filtered.map(t=>(
                   <tr key={t._id} className="hover:bg-gray-50">
                     <td className="px-4 py-3 whitespace-nowrap">
-                      <span className="inline-flex px-2 py-0.5 text-xs font-bold rounded-full bg-blue-100 text-blue-700">{t._company}</span>
+                      <span className="inline-flex px-2 py-0.5 text-xs font-bold rounded-full bg-emerald-100 text-emerald-700">{t._company}</span>
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap font-medium">{t.col1||"—"}</td>
                     <td className="px-4 py-3 whitespace-nowrap">{t.col2||"—"}</td>
@@ -762,11 +762,11 @@ export default function AllCompaniesPage() {
       <div className="max-w-7xl mx-auto pb-8 space-y-6">
         {/* Page title */}
         <div className="flex items-center gap-3">
-          <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
+          <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg">
             <Sparkles className="h-6 w-6 text-white"/>
           </div>
           <div>
-            <h1 className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+            <h1 className="text-3xl font-bold bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
               Check List Dashboard
             </h1>
             <p className="text-sm text-slate-500 mt-0.5">Manage and update all checklist tasks</p>

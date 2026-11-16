@@ -10,7 +10,7 @@ import { fetchSheetDataFast } from "../../utils/sheetApi"
 const CONFIG = {
   // Google Apps Script URL
   APPS_SCRIPT_URL:
-    "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec",
+    import.meta.env.VITE_APPS_SCRIPT_URL,
 
   // Google Drive folder ID for file uploads
   DRIVE_FOLDER_ID: "1Sb2UEvIp37owQISBjg4BmQuklqKAi7Mr",
@@ -596,11 +596,11 @@ function RefratechDataPage() {
         {/* Enhanced Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
                 {showHistory ? `${CONFIG.PAGE_CONFIG.historyTitle}` : `${CONFIG.PAGE_CONFIG.title}`}
               </h1>
               <p className="text-sm text-slate-600 mt-1">
@@ -635,7 +635,7 @@ function RefratechDataPage() {
                 disabled={selectedItemsCount === 0 || isSubmitting}
                 className={`flex-1 md:flex-none flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-white font-semibold transition-all duration-300 shadow-md hover:shadow-lg ${selectedItemsCount === 0 || isSubmitting
                     ? "bg-slate-300 cursor-not-allowed"
-                    : "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                    : "bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800"
                   }`}
               >
                 {isSubmitting ? (
@@ -653,7 +653,7 @@ function RefratechDataPage() {
         <div className="rounded-2xl border border-slate-200 shadow-lg bg-white overflow-hidden">
           <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 border-b border-slate-200 flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2 text-slate-700 font-semibold mr-2">
-              <Filter className="h-4 w-4 text-blue-600" />
+              <Filter className="h-4 w-4 text-emerald-600" />
               <span>Filters</span>
             </div>
             
@@ -664,7 +664,7 @@ function RefratechDataPage() {
                 placeholder={showHistory ? "Search in history..." : "Quick search pending tasks..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
               />
             </div>
 
@@ -676,7 +676,7 @@ function RefratechDataPage() {
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="pl-10 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 outline-none"
+                    className="pl-10 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 outline-none"
                   />
                 </div>
                 <span className="text-slate-400">to</span>
@@ -686,7 +686,7 @@ function RefratechDataPage() {
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="pl-10 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 outline-none"
+                    className="pl-10 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 outline-none"
                   />
                 </div>
               </div>
@@ -708,7 +708,7 @@ function RefratechDataPage() {
                       onClick={() => handleMemberSelection(member)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                         isSelected 
-                          ? "bg-blue-600 text-white shadow-md" 
+                          ? "bg-emerald-600 text-white shadow-md" 
                           : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                       }`}
                     >
@@ -744,8 +744,8 @@ function RefratechDataPage() {
         <div className="bg-white">
           <div className="bg-slate-50 border-b border-slate-200 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <FileText className="h-5 w-5 text-blue-600" />
+              <div className="p-2 bg-emerald-100 rounded-lg">
+                <FileText className="h-5 w-5 text-emerald-600" />
               </div>
               <div>
                 <h2 className="text-lg font-bold text-slate-800 leading-none">
@@ -762,8 +762,8 @@ function RefratechDataPage() {
 
           {loading ? (
             <div className="text-center py-10">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500 mb-4"></div>
-              <p className="text-purple-600">Loading task data...</p>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-teal-500 mb-4"></div>
+              <p className="text-teal-600">Loading task data...</p>
             </div>
           ) : error ? (
             <div className="bg-red-50 p-4 rounded-md text-red-800 text-center">
@@ -775,12 +775,12 @@ function RefratechDataPage() {
           ) : showHistory ? (
             <>
               {/* History Filters */}
-              <div className="p-4 border-b border-purple-100 bg-gray-50">
+              <div className="p-4 border-b border-teal-100 bg-gray-50">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   {getFilteredMembersList().length > 0 && (
                     <div className="flex flex-col">
                       <div className="mb-2 flex items-center">
-                        <span className="text-sm font-medium text-purple-700">Filter by Member:</span>
+                        <span className="text-sm font-medium text-teal-700">Filter by Member:</span>
                       </div>
                       <div className="flex flex-wrap gap-3 max-h-32 overflow-y-auto p-2 border border-gray-200 rounded-md bg-white">
                         {getFilteredMembersList().map((member, idx) => (
@@ -788,7 +788,7 @@ function RefratechDataPage() {
                             <input
                               id={`member-${idx}`}
                               type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                              className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                               checked={selectedMembers.includes(member)}
                               onChange={() => handleMemberSelection(member)}
                             />
@@ -803,7 +803,7 @@ function RefratechDataPage() {
 
                   <div className="flex flex-col">
                     <div className="mb-2 flex items-center">
-                      <span className="text-sm font-medium text-purple-700">Filter by Date Range:</span>
+                      <span className="text-sm font-medium text-teal-700">Filter by Date Range:</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="flex items-center">
@@ -845,26 +845,26 @@ function RefratechDataPage() {
               </div>
 
               {/* Task Statistics */}
-              <div className="p-4 border-b border-purple-100 bg-blue-50">
+              <div className="p-4 border-b border-teal-100 bg-emerald-50">
                 <div className="flex flex-col">
-                  <h3 className="text-sm font-medium text-blue-700 mb-2">Task Completion Statistics:</h3>
+                  <h3 className="text-sm font-medium text-emerald-700 mb-2">Task Completion Statistics:</h3>
                   <div className="flex flex-wrap gap-4">
                     <div className="px-3 py-2 bg-white rounded-md shadow-sm">
                       <span className="text-xs text-gray-500">Total Completed</span>
-                      <div className="text-lg font-semibold text-blue-600">{getTaskStatistics().totalCompleted}</div>
+                      <div className="text-lg font-semibold text-emerald-600">{getTaskStatistics().totalCompleted}</div>
                     </div>
 
                     {(selectedMembers.length > 0 || startDate || endDate || searchTerm) && (
                       <div className="px-3 py-2 bg-white rounded-md shadow-sm">
                         <span className="text-xs text-gray-500">Filtered Results</span>
-                        <div className="text-lg font-semibold text-blue-600">{getTaskStatistics().filteredTotal}</div>
+                        <div className="text-lg font-semibold text-emerald-600">{getTaskStatistics().filteredTotal}</div>
                       </div>
                     )}
 
                     {selectedMembers.map((member) => (
                       <div key={member} className="px-3 py-2 bg-white rounded-md shadow-sm">
                         <span className="text-xs text-gray-500">{member}</span>
-                        <div className="text-lg font-semibold text-indigo-600">
+                        <div className="text-lg font-semibold text-teal-600">
                           {getTaskStatistics().memberStats[member]}
                         </div>
                       </div>
@@ -908,10 +908,10 @@ function RefratechDataPage() {
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-green-50">
                         Actual Date
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-blue-50">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-emerald-50">
                         Status
                       </th>
-                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-purple-50">
+                      <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-teal-50">
                         Remarks
                       </th>
                       <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -955,7 +955,7 @@ function RefratechDataPage() {
                           <td className="px-6 py-4 whitespace-nowrap bg-green-50">
                             <div className="text-sm font-medium text-gray-900">{history["col10"] || "—"}</div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap bg-blue-50">
+                          <td className="px-6 py-4 whitespace-nowrap bg-emerald-50">
                             <span
                               className={`inline-flex px-2 py-1 text-xs font-semibold rounded-full ${history["col12"] === "Yes"
                                 ? "bg-green-100 text-green-800"
@@ -967,7 +967,7 @@ function RefratechDataPage() {
                               {history["col12"] || "—"}
                             </span>
                           </td>
-                          <td className="px-6 py-4 bg-purple-50">
+                          <td className="px-6 py-4 bg-teal-50">
                             <div className="text-sm text-gray-900 max-w-xs" title={history["col13"]}>
                               {history["col13"] || "—"}
                             </div>
@@ -978,7 +978,7 @@ function RefratechDataPage() {
                                 href={history["col14"]}
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                className="text-blue-600 hover:text-blue-800 underline flex items-center"
+                                className="text-emerald-600 hover:text-emerald-800 underline flex items-center"
                               >
                                 <img
                                   src={history["col14"] || "/placeholder.svg?height=32&width=32"}
@@ -1015,7 +1015,7 @@ function RefratechDataPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <input
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                        className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                         checked={filteredAccountData.length > 0 && selectedItems.size === filteredAccountData.length}
                         onChange={handleSelectAllItems}
                       />
@@ -1063,11 +1063,11 @@ function RefratechDataPage() {
                     filteredAccountData.map((account) => {
                       const isSelected = selectedItems.has(account._id)
                       return (
-                        <tr key={account._id} className={`${isSelected ? "bg-purple-50" : ""} hover:bg-gray-50`}>
+                        <tr key={account._id} className={`${isSelected ? "bg-teal-50" : ""} hover:bg-gray-50`}>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <input
                               type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                              className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                               checked={isSelected}
                               onChange={(e) => handleCheckboxClick(e, account._id)}
                             />
@@ -1152,7 +1152,7 @@ function RefratechDataPage() {
                                     <span className="text-xs text-green-600">Ready to upload</span>
                                   ) : (
                                     <button
-                                      className="text-xs text-purple-600 hover:text-purple-800"
+                                      className="text-xs text-teal-600 hover:text-teal-800"
                                       onClick={() => window.open(account.image, "_blank")}
                                     >
                                       View Full Image
@@ -1162,7 +1162,7 @@ function RefratechDataPage() {
                               </div>
                             ) : (
                               <label
-                                className={`flex items-center cursor-pointer ${account["col9"]?.toUpperCase() === "YES" ? "text-red-600 font-medium" : "text-purple-600"} hover:text-purple-800`}
+                                className={`flex items-center cursor-pointer ${account["col9"]?.toUpperCase() === "YES" ? "text-red-600 font-medium" : "text-teal-600"} hover:text-teal-800`}
                               >
                                 <Upload className="h-4 w-4 mr-1" />
                                 <span className="text-xs">

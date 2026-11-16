@@ -56,10 +56,10 @@ export default function DataPage() {
         <AdminLayout>
           <div className="max-w-7xl mx-auto space-y-8">
             <div className="flex items-center gap-3">
-              <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
+              <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg">
                 <Sparkles className="h-6 w-6 text-white" />
               </div>
-              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
                 {formatCategoryName(category)} Module
               </h1>
             </div>
@@ -67,8 +67,8 @@ export default function DataPage() {
             <div className="rounded-2xl border border-slate-200 shadow-xl bg-white overflow-hidden">
               <div className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 p-6">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-blue-100 rounded-lg">
-                    <FileText className="h-5 w-5 text-blue-600" />
+                  <div className="p-2 bg-emerald-100 rounded-lg">
+                    <FileText className="h-5 w-5 text-emerald-600" />
                   </div>
                   <div>
                     <h2 className="text-xl font-bold text-slate-800 leading-none">System Module Info</h2>
@@ -78,16 +78,16 @@ export default function DataPage() {
               </div>
               <div className="p-12 text-center">
                 <div className="mx-auto w-24 h-24 bg-slate-50 rounded-full flex items-center justify-center mb-6 border border-slate-100 shadow-inner">
-                  <AlertCircle className="h-10 w-10 text-blue-500 opacity-50" />
+                  <AlertCircle className="h-10 w-10 text-emerald-500 opacity-50" />
                 </div>
                 <h3 className="text-2xl font-bold text-slate-800 mb-2">Module Under Construction</h3>
                 <p className="text-slate-500 max-w-md mx-auto">
                   The {formatCategoryName(category).toLowerCase()} data module is currently being optimized for the new corporate system. Check back soon for full functionality.
                 </p>
                 <div className="mt-8 flex justify-center gap-3">
-                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce"></div>
-                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
-                  <div className="w-2 h-2 bg-blue-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
+                  <div className="w-2 h-2 bg-emerald-600 rounded-full animate-bounce"></div>
+                  <div className="w-2 h-2 bg-emerald-600 rounded-full animate-bounce [animation-delay:-0.15s]"></div>
+                  <div className="w-2 h-2 bg-emerald-600 rounded-full animate-bounce [animation-delay:-0.3s]"></div>
                 </div>
               </div>
             </div>

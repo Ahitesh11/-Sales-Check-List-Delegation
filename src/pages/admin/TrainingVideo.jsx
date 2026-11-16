@@ -39,13 +39,13 @@ const HelpVideo = () => {
 
     return (
         <AdminLayout>
-            <div className="min-h-screen bg-gradient-to-br from-blue-50 to-purple-50 p-4">
+            <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50 p-4">
                 <div className="max-w-4xl mx-auto">
                     {/* Header */}
                     <div className="mb-8">
                         <div className="flex items-center justify-between">
                             <div className="flex items-center gap-3">
-                                <div className="p-3 bg-gradient-to-r from-red-500 to-purple-500 rounded-lg">
+                                <div className="p-3 bg-gradient-to-r from-red-500 to-teal-500 rounded-lg">
                                     <Video className="h-6 w-6 text-white" />
                                 </div>
                                 <div>
@@ -57,7 +57,7 @@ const HelpVideo = () => {
                             </div>
                             <div className="flex items-center gap-2 bg-white rounded-lg px-4 py-2 shadow-sm">
                                 {userRole === "admin" ? (
-                                    <Users className="h-5 w-5 text-blue-600" />
+                                    <Users className="h-5 w-5 text-emerald-600" />
                                 ) : (
                                     <User className="h-5 w-5 text-green-600" />
                                 )}
@@ -127,7 +127,7 @@ const HelpVideo = () => {
                                 </div>
 
                                 {/* Video Description */}
-                                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg p-6 border border-gray-200">
+                                <div className="bg-gradient-to-r from-gray-50 to-emerald-50 rounded-lg p-6 border border-gray-200">
                                     <h3 className="font-semibold text-gray-800 mb-3 flex items-center gap-2">
                                         <span className="w-3 h-3 bg-green-500 rounded-full"></span>
                                         What you'll learn in this video:
@@ -136,23 +136,23 @@ const HelpVideo = () => {
                                         {userRole === "admin" ? (
                                             <>
                                                 <li className="flex items-start gap-2">
-                                                    <span className="text-blue-600 font-bold">•</span>
+                                                    <span className="text-emerald-600 font-bold">•</span>
                                                     <span>Managing user accounts and permissions</span>
                                                 </li>
                                                 <li className="flex items-start gap-2">
-                                                    <span className="text-blue-600 font-bold">•</span>
+                                                    <span className="text-emerald-600 font-bold">•</span>
                                                     <span>Creating and assigning tasks to team members</span>
                                                 </li>
                                                 <li className="flex items-start gap-2">
-                                                    <span className="text-blue-600 font-bold">•</span>
+                                                    <span className="text-emerald-600 font-bold">•</span>
                                                     <span>Monitoring system performance and analytics</span>
                                                 </li>
                                                 <li className="flex items-start gap-2">
-                                                    <span className="text-blue-600 font-bold">•</span>
+                                                    <span className="text-emerald-600 font-bold">•</span>
                                                     <span>Generating reports and data insights</span>
                                                 </li>
                                                 <li className="flex items-start gap-2">
-                                                    <span className="text-blue-600 font-bold">•</span>
+                                                    <span className="text-emerald-600 font-bold">•</span>
                                                     <span>System configuration and advanced settings</span>
                                                 </li>
                                             </>

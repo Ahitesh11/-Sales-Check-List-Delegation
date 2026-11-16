@@ -8,12 +8,12 @@ import {
 } from "lucide-react"
 import AdminLayout from "../../components/layout/AdminLayout"
 
-const SHEET_ID = "1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms"
+const SHEET_ID = import.meta.env.VITE_SHEET_ID
 const APPS_SCRIPT_URL =
-  "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec"
+  import.meta.env.VITE_APPS_SCRIPT_URL
 
 const DEPARTMENTS = [
-  { name: "POSSH TOWN", sheet: "POSSH TOWN" },
+  { name: "Sales Check List & Delegation", sheet: "Check List" },
 ]
 
 // ─── Pure helpers ────────────────────────────────────────────────────────────
@@ -245,8 +245,8 @@ export default function PCDashboard() {
     const cfg = {
       completed:  { cls: "bg-emerald-100 text-emerald-700 border-emerald-200", label: "✓ Completed" },
       overdue:    { cls: "bg-red-100 text-red-700 border-red-300 font-bold",   label: "⚠ Overdue" },
-      today:      { cls: "bg-blue-100 text-blue-700 border-blue-200",          label: "● Due Today" },
-      "this-week":{ cls: "bg-purple-100 text-purple-700 border-purple-200",    label: "↗ This Week" },
+      today:      { cls: "bg-emerald-100 text-emerald-700 border-emerald-200",          label: "● Due Today" },
+      "this-week":{ cls: "bg-teal-100 text-teal-700 border-teal-200",    label: "↗ This Week" },
       upcoming:   { cls: "bg-slate-100 text-slate-500 border-slate-200",       label: "→ Upcoming" },
       pending:    { cls: "bg-amber-100 text-amber-700 border-amber-200",       label: "○ Pending" },
     }[status] ?? { cls: "bg-slate-100 text-slate-500 border-slate-200", label: status }
@@ -274,7 +274,7 @@ export default function PCDashboard() {
         {/* ── Header ── */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
-            <div className="p-3 bg-gradient-to-br from-indigo-500 to-indigo-700 rounded-2xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-teal-500 to-teal-700 rounded-2xl shadow-lg">
               <BarChart3 className="h-7 w-7 text-white" />
             </div>
             <div>
@@ -336,10 +336,10 @@ export default function PCDashboard() {
               value: stats.todayCount,
               sub: "Must complete today",
               icon: Calendar,
-              iconCls: "bg-blue-100 text-blue-600",
-              border: "border-blue-200",
-              textCls: "text-blue-700",
-              subCls: "text-blue-500",
+              iconCls: "bg-emerald-100 text-emerald-600",
+              border: "border-emerald-200",
+              textCls: "text-emerald-700",
+              subCls: "text-emerald-500",
               filter: "today",
             },
             {
@@ -347,10 +347,10 @@ export default function PCDashboard() {
               value: stats.thisWeek,
               sub: "Due within 7 days",
               icon: Clock,
-              iconCls: "bg-purple-100 text-purple-600",
-              border: "border-purple-200",
-              textCls: "text-purple-700",
-              subCls: "text-purple-500",
+              iconCls: "bg-teal-100 text-teal-600",
+              border: "border-teal-200",
+              textCls: "text-teal-700",
+              subCls: "text-teal-500",
               filter: "this-week",
             },
             {
@@ -358,10 +358,10 @@ export default function PCDashboard() {
               value: stats.upcoming,
               sub: "Scheduled ahead",
               icon: CheckCircle2,
-              iconCls: "bg-indigo-100 text-indigo-600",
-              border: "border-indigo-200",
-              textCls: "text-indigo-700",
-              subCls: "text-indigo-500",
+              iconCls: "bg-teal-100 text-teal-600",
+              border: "border-teal-200",
+              textCls: "text-teal-700",
+              subCls: "text-teal-500",
               filter: "upcoming",
             },
           ].map(card => (
@@ -396,8 +396,8 @@ export default function PCDashboard() {
           {/* Toolbar */}
           <div className="p-5 border-b border-slate-100 space-y-4">
             <div className="flex items-center gap-3 flex-wrap">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <Activity className="h-5 w-5 text-blue-600" />
+              <div className="p-2 bg-emerald-100 rounded-lg">
+                <Activity className="h-5 w-5 text-emerald-600" />
               </div>
               <h2 className="text-lg font-bold text-slate-800">Task Details</h2>
               <span className="ml-auto text-sm text-slate-400 font-medium">
@@ -417,10 +417,10 @@ export default function PCDashboard() {
                 const active = activeFilter === f.key
                 const colorMap = {
                   red:    active ? "bg-red-600 text-white border-red-600 shadow-md shadow-red-100"         : "border-red-200 text-red-600 hover:border-red-400 hover:bg-red-50",
-                  blue:   active ? "bg-blue-600 text-white border-blue-600 shadow-md shadow-blue-100"      : "border-blue-200 text-blue-600 hover:border-blue-400 hover:bg-blue-50",
+                  blue:   active ? "bg-emerald-600 text-white border-emerald-600 shadow-md shadow-emerald-100"      : "border-emerald-200 text-emerald-600 hover:border-emerald-400 hover:bg-emerald-50",
                   amber:  active ? "bg-amber-500 text-white border-amber-500 shadow-md shadow-amber-100"   : "border-amber-200 text-amber-600 hover:border-amber-400 hover:bg-amber-50",
-                  purple: active ? "bg-purple-600 text-white border-purple-600 shadow-md shadow-purple-100": "border-purple-200 text-purple-600 hover:border-purple-400 hover:bg-purple-50",
-                  indigo: active ? "bg-indigo-600 text-white border-indigo-600 shadow-md shadow-indigo-100": "border-indigo-200 text-indigo-600 hover:border-indigo-400 hover:bg-indigo-50",
+                  purple: active ? "bg-teal-600 text-white border-teal-600 shadow-md shadow-teal-100": "border-teal-200 text-teal-600 hover:border-teal-400 hover:bg-teal-50",
+                  indigo: active ? "bg-teal-600 text-white border-teal-600 shadow-md shadow-teal-100": "border-teal-200 text-teal-600 hover:border-teal-400 hover:bg-teal-50",
                 }
                 return (
                   <button
@@ -449,7 +449,7 @@ export default function PCDashboard() {
                   value={searchQuery}
                   onChange={e => setSearchQuery(e.target.value)}
                   placeholder="Search employee, task description, department…"
-                  className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-blue-400 focus:outline-none focus:ring-2 focus:ring-blue-100 bg-slate-50"
+                  className="w-full pl-9 pr-4 py-2.5 border border-slate-200 rounded-xl text-sm focus:border-emerald-400 focus:outline-none focus:ring-2 focus:ring-emerald-100 bg-slate-50"
                 />
               </div>
               <div className="flex items-center gap-2">
@@ -457,7 +457,7 @@ export default function PCDashboard() {
                 <select
                   value={selectedDept}
                   onChange={e => setSelectedDept(e.target.value)}
-                  className="px-3 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 bg-slate-50 focus:border-blue-400 focus:outline-none"
+                  className="px-3 py-2.5 border border-slate-200 rounded-xl text-sm font-medium text-slate-700 bg-slate-50 focus:border-emerald-400 focus:outline-none"
                 >
                   <option value="All">All Departments</option>
                   {DEPARTMENTS.map(d => (
@@ -486,7 +486,7 @@ export default function PCDashboard() {
                 <thead>
                   <tr className="bg-slate-50 border-b border-slate-100 text-xs uppercase tracking-wide">
                     <th
-                      className="text-left px-5 py-3 font-semibold text-slate-500 cursor-pointer hover:text-indigo-600 select-none"
+                      className="text-left px-5 py-3 font-semibold text-slate-500 cursor-pointer hover:text-teal-600 select-none"
                       onClick={() => handleSort("assignedTo")}
                     >
                       Employee <SortArrow field="assignedTo" />
@@ -494,7 +494,7 @@ export default function PCDashboard() {
                     <th className="text-left px-4 py-3 font-semibold text-slate-500">Dept</th>
                     <th className="text-left px-4 py-3 font-semibold text-slate-500">Task Description</th>
                     <th
-                      className="text-left px-4 py-3 font-semibold text-slate-500 cursor-pointer hover:text-indigo-600 select-none whitespace-nowrap"
+                      className="text-left px-4 py-3 font-semibold text-slate-500 cursor-pointer hover:text-teal-600 select-none whitespace-nowrap"
                       onClick={() => handleSort("dueDate")}
                     >
                       Due Date <SortArrow field="dueDate" />
@@ -517,7 +517,7 @@ export default function PCDashboard() {
                     const rowBg = isOverdue
                       ? "bg-red-50/60 hover:bg-red-50"
                       : isToday
-                      ? "bg-blue-50/40 hover:bg-blue-50"
+                      ? "bg-emerald-50/40 hover:bg-emerald-50"
                       : "hover:bg-slate-50/80"
 
                     return (
@@ -526,8 +526,8 @@ export default function PCDashboard() {
                           <div className="flex items-center gap-2.5">
                             <div className={`h-7 w-7 rounded-full flex items-center justify-center text-xs font-bold shrink-0 ${
                               isOverdue ? "bg-red-100 text-red-700" :
-                              isToday   ? "bg-blue-100 text-blue-700" :
-                                          "bg-indigo-100 text-indigo-700"
+                              isToday   ? "bg-emerald-100 text-emerald-700" :
+                                          "bg-teal-100 text-teal-700"
                             }`}>
                               {task.assignedTo.charAt(0).toUpperCase()}
                             </div>
@@ -548,7 +548,7 @@ export default function PCDashboard() {
                             title={task.description}
                             className={`line-clamp-2 ${
                               isOverdue ? "text-red-800 font-medium" :
-                              isToday   ? "text-blue-900 font-medium" : "text-slate-700"
+                              isToday   ? "text-emerald-900 font-medium" : "text-slate-700"
                             }`}
                           >
                             {task.description}

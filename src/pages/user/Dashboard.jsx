@@ -20,14 +20,14 @@ const UserDashboard = () => {
       </div>
 
       <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-        <div className="card border-l-4 border-l-blue-500 shadow-md hover:shadow-lg transition-all">
-          <div className="flex flex-row items-center justify-between space-y-0 pb-2 bg-gradient-to-r from-blue-50 to-blue-100 dark:from-blue-950 dark:to-blue-900 rounded-tr-lg p-4 border-b border-blue-200 dark:border-blue-800">
-            <h3 className="text-sm font-medium text-blue-700 dark:text-blue-300">Total Tasks</h3>
-            <i className="fas fa-clipboard-list h-4 w-4 text-blue-500"></i>
+        <div className="card border-l-4 border-l-emerald-500 shadow-md hover:shadow-lg transition-all">
+          <div className="flex flex-row items-center justify-between space-y-0 pb-2 bg-gradient-to-r from-emerald-50 to-emerald-100 dark:from-emerald-950 dark:to-emerald-900 rounded-tr-lg p-4 border-b border-emerald-200 dark:border-emerald-800">
+            <h3 className="text-sm font-medium text-emerald-700 dark:text-emerald-300">Total Tasks</h3>
+            <i className="fas fa-clipboard-list h-4 w-4 text-emerald-500"></i>
           </div>
           <div className="p-4">
-            <div className="text-3xl font-bold text-blue-700 dark:text-blue-300">24</div>
-            <p className="text-xs text-blue-600 dark:text-blue-400">Assigned to you</p>
+            <div className="text-3xl font-bold text-emerald-700 dark:text-emerald-300">24</div>
+            <p className="text-xs text-emerald-600 dark:text-emerald-400">Assigned to you</p>
           </div>
         </div>
 
@@ -71,7 +71,7 @@ const UserDashboard = () => {
           <button
             className={`py-3 text-center font-medium transition-colors ${
               taskView === "recent"
-                ? "bg-blue-600 text-white"
+                ? "bg-emerald-600 text-white"
                 : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
             }`}
             onClick={() => setTaskView("recent")}
@@ -81,7 +81,7 @@ const UserDashboard = () => {
           <button
             className={`py-3 text-center font-medium transition-colors ${
               taskView === "upcoming"
-                ? "bg-blue-600 text-white"
+                ? "bg-emerald-600 text-white"
                 : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
             }`}
             onClick={() => setTaskView("upcoming")}
@@ -91,7 +91,7 @@ const UserDashboard = () => {
           <button
             className={`py-3 text-center font-medium transition-colors ${
               taskView === "overdue"
-                ? "bg-blue-600 text-white"
+                ? "bg-emerald-600 text-white"
                 : "bg-gray-100 text-gray-600 hover:bg-gray-200 dark:bg-gray-800 dark:text-gray-300 dark:hover:bg-gray-700"
             }`}
             onClick={() => setTaskView("overdue")}
@@ -110,7 +110,7 @@ const UserDashboard = () => {
 
           {taskView === "upcoming" && (
             <div className="space-y-4">
-              <h3 className="text-lg font-medium text-blue-700 dark:text-blue-300">Upcoming Tasks</h3>
+              <h3 className="text-lg font-medium text-emerald-700 dark:text-emerald-300">Upcoming Tasks</h3>
               <TasksList filter="upcoming" />
             </div>
           )}
@@ -228,10 +228,10 @@ const TasksList = ({ filter }) => {
           <div
             key={task.id}
             className={`card ${task.completed ? "opacity-60" : ""} border-l-4 ${
-              task.completed ? "border-l-green-500" : "border-l-blue-500"
+              task.completed ? "border-l-green-500" : "border-l-emerald-500"
             } transition-all hover:shadow-md`}
           >
-            <div className="p-4 pb-2 bg-gradient-to-r from-blue-50 to-purple-50 dark:from-blue-950 dark:to-purple-950 border-b border-blue-200 dark:border-blue-800">
+            <div className="p-4 pb-2 bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-emerald-950 dark:to-teal-950 border-b border-emerald-200 dark:border-emerald-800">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <input
@@ -241,7 +241,7 @@ const TasksList = ({ filter }) => {
                     className="checkbox"
                     readOnly
                   />
-                  <h3 className={`text-lg text-blue-700 dark:text-blue-300 ${task.completed ? "line-through" : ""}`}>
+                  <h3 className={`text-lg text-emerald-700 dark:text-emerald-300 ${task.completed ? "line-through" : ""}`}>
                     {task.title}
                   </h3>
                 </div>
@@ -249,7 +249,7 @@ const TasksList = ({ filter }) => {
                   {task.frequency.charAt(0).toUpperCase() + task.frequency.slice(1)}
                 </span>
               </div>
-              <p className="text-sm text-blue-600 dark:text-blue-400">Due: {task.dueDate}</p>
+              <p className="text-sm text-emerald-600 dark:text-emerald-400">Due: {task.dueDate}</p>
             </div>
             <div className="p-4">
               <p className="text-sm text-gray-600 dark:text-gray-300">{task.description}</p>

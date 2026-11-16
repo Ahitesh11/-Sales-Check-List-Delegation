@@ -6,7 +6,7 @@ import AdminLayout from "../../components/layout/AdminLayout"
 import ReactDOM from 'react-dom';
 
 // Google Apps Script URL
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec"
+const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL
 // Google Drive folder ID
 const DRIVE_FOLDER_ID = "1Sb2UEvIp37owQISBjg4BmQuklqKAi7Mr"
 
@@ -261,12 +261,12 @@ const ConfirmationModal = ({ isOpen, itemCount, onConfirm, onCancel }) => {
       <div className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm animate-in fade-in duration-300" onClick={onCancel}></div>
       <div className="relative bg-white rounded-3xl shadow-2xl p-8 max-w-md w-full animate-in zoom-in-95 duration-300 border border-slate-100">
         <div className="flex flex-col items-center text-center">
-          <div className="bg-blue-50 text-blue-600 rounded-2xl p-4 mb-6 shadow-inner">
+          <div className="bg-emerald-50 text-emerald-600 rounded-2xl p-4 mb-6 shadow-inner">
             <AlertCircle className="h-8 w-8" />
           </div>
           <h2 className="text-2xl font-bold text-slate-800 mb-2">Final Confirmation</h2>
           <p className="text-slate-600 mb-8">
-            Are you sure you want to mark <span className="font-bold text-blue-600">{itemCount}</span> {itemCount === 1 ? 'item' : 'items'} as completed? This action will archive these records.
+            Are you sure you want to mark <span className="font-bold text-emerald-600">{itemCount}</span> {itemCount === 1 ? 'item' : 'items'} as completed? This action will archive these records.
           </p>
           
           <div className="flex w-full gap-3">
@@ -278,7 +278,7 @@ const ConfirmationModal = ({ isOpen, itemCount, onConfirm, onCancel }) => {
             </button>
             <button 
               onClick={onConfirm}
-              className="flex-1 px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-blue-200 transition-all"
+              className="flex-1 px-6 py-3 bg-gradient-to-r from-emerald-600 to-emerald-700 text-white rounded-xl font-semibold hover:shadow-lg hover:shadow-emerald-200 transition-all"
             >
               Confirm
             </button>
@@ -631,11 +631,11 @@ const confirmMarkDone = async () => {
         {/* Enhanced Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
                 {showHistory ? "Jockey Record Hub" : "Jockey Workspace"}
               </h1>
               <p className="text-sm text-slate-600 mt-1">
@@ -670,7 +670,7 @@ const confirmMarkDone = async () => {
                 disabled={selectedItems.length === 0 || isSubmitting}
                 className={`flex-1 md:flex-none flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-white font-semibold transition-all duration-300 shadow-md hover:shadow-lg ${selectedItems.length === 0 || isSubmitting
                     ? "bg-slate-300 cursor-not-allowed"
-                    : "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                    : "bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800"
                   }`}
               >
                 {isSubmitting ? (
@@ -699,7 +699,7 @@ const confirmMarkDone = async () => {
         <div className="rounded-2xl border border-slate-200 shadow-lg bg-white overflow-hidden">
           <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 border-b border-slate-200 flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2 text-slate-700 font-semibold mr-2">
-              <Filter className="h-4 w-4 text-blue-600" />
+              <Filter className="h-4 w-4 text-emerald-600" />
               <span>Filters</span>
             </div>
             
@@ -710,7 +710,7 @@ const confirmMarkDone = async () => {
                 placeholder={showHistory ? "Search archived logs..." : "Search active tasks..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
               />
             </div>
 
@@ -722,7 +722,7 @@ const confirmMarkDone = async () => {
                     type="date"
                     value={startDate}
                     onChange={(e) => setStartDate(e.target.value)}
-                    className="pl-10 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 outline-none"
+                    className="pl-10 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 outline-none"
                   />
                 </div>
                 <span className="text-slate-400">to</span>
@@ -732,7 +732,7 @@ const confirmMarkDone = async () => {
                     type="date"
                     value={endDate}
                     onChange={(e) => setEndDate(e.target.value)}
-                    className="pl-10 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 outline-none"
+                    className="pl-10 pr-3 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 outline-none"
                   />
                 </div>
               </div>
@@ -754,7 +754,7 @@ const confirmMarkDone = async () => {
                       onClick={() => handleMemberSelection(member)}
                       className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all ${
                         isSelected 
-                          ? "bg-blue-600 text-white shadow-md shadow-blue-200" 
+                          ? "bg-emerald-600 text-white shadow-md shadow-emerald-200" 
                           : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                       }`}
                     >
@@ -782,8 +782,8 @@ const confirmMarkDone = async () => {
         <div className="bg-white">
           <div className="bg-slate-50 border-b border-slate-200 p-4 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-100 rounded-lg">
-                <FileText className="h-5 w-5 text-blue-600" />
+              <div className="p-2 bg-emerald-100 rounded-lg">
+                <FileText className="h-5 w-5 text-emerald-600" />
               </div>
               <div>
                 <h2 className="text-lg font-bold text-slate-800 leading-none">
@@ -800,8 +800,8 @@ const confirmMarkDone = async () => {
             
           {loading ? (
             <div className="text-center py-10">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-purple-500 mb-4"></div>
-              <p className="text-purple-600">Loading account data...</p>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-teal-500 mb-4"></div>
+              <p className="text-teal-600">Loading account data...</p>
             </div>
           ) : error ? (
             <div className="bg-red-50 p-4 rounded-md text-red-800 text-center">
@@ -811,12 +811,12 @@ const confirmMarkDone = async () => {
             // History Table
             <>
               {/* Filters Section */}
-              <div className="p-4 border-b border-purple-100 bg-gray-50">
+              <div className="p-4 border-b border-teal-100 bg-gray-50">
                 <div className="flex flex-wrap items-center justify-between gap-4">
                   {/* Member filter checkboxes */}
                   <div className="flex flex-col">
                     <div className="mb-2 flex items-center">
-                      <span className="text-sm font-medium text-purple-700">Filter by Member:</span>
+                      <span className="text-sm font-medium text-teal-700">Filter by Member:</span>
                     </div>
                     <div className="flex flex-wrap gap-3 max-h-32 overflow-y-auto p-2 border border-gray-200 rounded-md bg-white">
                       {membersList.map((member, idx) => (
@@ -824,7 +824,7 @@ const confirmMarkDone = async () => {
                           <input
                             id={`member-${idx}`}
                             type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                            className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                             checked={selectedMembers.includes(member)}
                             onChange={() => handleMemberSelection(member)}
                           />
@@ -839,7 +839,7 @@ const confirmMarkDone = async () => {
                   {/* Date Range Filter */}
                   <div className="flex flex-col">
                     <div className="mb-2 flex items-center">
-                      <span className="text-sm font-medium text-purple-700">Filter by Date Range:</span>
+                      <span className="text-sm font-medium text-teal-700">Filter by Date Range:</span>
                     </div>
                     <div className="flex items-center gap-2">
                       <div className="flex items-center">
@@ -883,19 +883,19 @@ const confirmMarkDone = async () => {
         />
               
               {/* Task Completion Statistics */}
-              <div className="p-4 border-b border-purple-100 bg-blue-50">
+              <div className="p-4 border-b border-teal-100 bg-emerald-50">
                 <div className="flex flex-col">
-                  <h3 className="text-sm font-medium text-blue-700 mb-2">Task Completion Statistics:</h3>
+                  <h3 className="text-sm font-medium text-emerald-700 mb-2">Task Completion Statistics:</h3>
                   <div className="flex flex-wrap gap-4">
                     <div className="px-3 py-2 bg-white rounded-md shadow-sm">
                       <span className="text-xs text-gray-500">Total Completed</span>
-                      <div className="text-lg font-semibold text-blue-600">{getTaskStatistics().totalCompleted}</div>
+                      <div className="text-lg font-semibold text-emerald-600">{getTaskStatistics().totalCompleted}</div>
                     </div>
                     
                     {(selectedMembers.length > 0 || startDate || endDate || searchTerm) && (
                       <div className="px-3 py-2 bg-white rounded-md shadow-sm">
                         <span className="text-xs text-gray-500">Filtered Results</span>
-                        <div className="text-lg font-semibold text-blue-600">{getTaskStatistics().filteredTotal}</div>
+                        <div className="text-lg font-semibold text-emerald-600">{getTaskStatistics().filteredTotal}</div>
                       </div>
                     )}
                     
@@ -903,7 +903,7 @@ const confirmMarkDone = async () => {
                     {selectedMembers.map(member => (
                       <div key={member} className="px-3 py-2 bg-white rounded-md shadow-sm">
                         <span className="text-xs text-gray-500">{member}</span>
-                        <div className="text-lg font-semibold text-indigo-600">{getTaskStatistics().memberStats[member]}</div>
+                        <div className="text-lg font-semibold text-teal-600">{getTaskStatistics().memberStats[member]}</div>
                       </div>
                     ))}
                   </div>
@@ -947,8 +947,8 @@ const confirmMarkDone = async () => {
                         <th 
                           key={header.id} 
                           className={`px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider
-                            ${header.id === 'col14' ? 'bg-blue-50' : ''}
-                            ${header.id === 'col15' ? 'bg-purple-50' : ''}
+                            ${header.id === 'col14' ? 'bg-emerald-50' : ''}
+                            ${header.id === 'col15' ? 'bg-teal-50' : ''}
                           `}
                         >
                           {header.label}
@@ -995,8 +995,8 @@ const confirmMarkDone = async () => {
                             <td 
                               key={header.id} 
                               className={`px-6 py-4 whitespace-nowrap
-                                ${header.id === 'col14' ? 'bg-blue-50' : ''}
-                                ${header.id === 'col15' ? 'bg-purple-50' : ''}
+                                ${header.id === 'col14' ? 'bg-emerald-50' : ''}
+                                ${header.id === 'col15' ? 'bg-teal-50' : ''}
                               `}
                             >
                               <div className="text-sm text-gray-900">
@@ -1029,7 +1029,7 @@ const confirmMarkDone = async () => {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <input
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                        className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                         checked={filteredAccountData.length > 0 && selectedItems.length === filteredAccountData.length}
                         onChange={(e) => {
                           if (e.target.checked) {
@@ -1063,12 +1063,12 @@ const confirmMarkDone = async () => {
                     filteredAccountData.map((account) => (
                       <tr
                         key={account._id}
-                        className={`${selectedItems.includes(account._id) ? "bg-purple-50" : ""} hover:bg-gray-50`}
+                        className={`${selectedItems.includes(account._id) ? "bg-teal-50" : ""} hover:bg-gray-50`}
                       >
                         <td className="px-6 py-4 whitespace-nowrap">
                           <input
                             type="checkbox"
-                            className="h-4 w-4 rounded border-gray-300 text-purple-600 focus:ring-purple-500"
+                            className="h-4 w-4 rounded border-gray-300 text-teal-600 focus:ring-teal-500"
                             checked={selectedItems.includes(account._id)}
                             onChange={() => handleSelectItem(account._id)}
                           />
@@ -1109,7 +1109,7 @@ const confirmMarkDone = async () => {
                                   <span className="text-xs text-green-600">Ready to upload</span>
                                 ) : (
                                   <button
-                                    className="text-xs text-purple-600 hover:text-purple-800"
+                                    className="text-xs text-teal-600 hover:text-teal-800"
                                     onClick={() => window.open(account.image, "_blank")}
                                   >
                                     View Full Image
@@ -1118,7 +1118,7 @@ const confirmMarkDone = async () => {
                               </div>
                             </div>
                           ) : (
-                            <label className={`flex items-center cursor-pointer ${account['col10']?.toUpperCase() === "YES" ? "text-red-600 font-medium" : "text-purple-600"} hover:text-purple-800`}>
+                            <label className={`flex items-center cursor-pointer ${account['col10']?.toUpperCase() === "YES" ? "text-red-600 font-medium" : "text-teal-600"} hover:text-teal-800`}>
                               <Upload className="h-4 w-4 mr-1" />
                               <span className="text-xs">
                                 {account['col10']?.toUpperCase() === "YES" ? "Required Upload" : "Upload Receipt Image"}

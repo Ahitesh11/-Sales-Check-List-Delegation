@@ -10,7 +10,7 @@ import { fetchSheetDataFast } from "../utils/sheetApi"
 const CONFIG = {
   // Google Apps Script URL
   APPS_SCRIPT_URL:
-    "https://script.google.com/macros/s/AKfycbwWynmbAyTuDAKeHlkZc6I8lnSKNL4AtqCS3FPUoq0fkbikywdlIxxW-0JsROeN6588/exec",
+    import.meta.env.VITE_APPS_SCRIPT_URL,
 
   // Sheet name to work with
   SHEET_NAME: "DELEGATION",
@@ -428,11 +428,11 @@ function ReverificationPage() {
         {/* Enhanced Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div className="flex items-center gap-3">
-            <div className="p-3 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl shadow-lg">
+            <div className="p-3 bg-gradient-to-br from-emerald-500 to-emerald-600 rounded-xl shadow-lg">
               <Sparkles className="h-6 w-6 text-white" />
             </div>
             <div>
-              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-blue-600 to-blue-700 bg-clip-text text-transparent">
+              <h1 className="text-3xl font-bold tracking-tight bg-gradient-to-r from-emerald-600 to-emerald-700 bg-clip-text text-transparent">
                 {showHistory ? CONFIG.PAGE_CONFIG.historyTitle : CONFIG.PAGE_CONFIG.title}
               </h1>
               <p className="text-sm text-slate-600 mt-1">
@@ -465,7 +465,7 @@ function ReverificationPage() {
                 disabled={selectedItemsCount === 0 || isSubmitting}
                 className={`flex-1 md:flex-none flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-white font-semibold transition-all duration-300 shadow-md hover:shadow-lg ${selectedItemsCount === 0 || isSubmitting
                     ? "bg-slate-300 cursor-not-allowed"
-                    : "bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800"
+                    : "bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800"
                   }`}
               >
                 {isSubmitting ? (
@@ -483,7 +483,7 @@ function ReverificationPage() {
         <div className="rounded-2xl border border-slate-200 shadow-lg bg-white overflow-hidden">
           <div className="bg-gradient-to-r from-slate-50 to-slate-100 p-4 border-b border-slate-200 flex flex-wrap items-center gap-4">
             <div className="flex items-center gap-2 text-slate-700 font-semibold mr-2">
-              <Filter className="h-4 w-4 text-blue-600" />
+              <Filter className="h-4 w-4 text-emerald-600" />
               <span>Quick Search</span>
             </div>
             
@@ -494,14 +494,14 @@ function ReverificationPage() {
                 placeholder={showHistory ? "Search history records..." : "Search pending verifications..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all"
+                className="w-full pl-10 pr-4 py-2 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all"
               />
             </div>
 
             <select
               value={filterGivenBy}
               onChange={(e) => setFilterGivenBy(e.target.value)}
-              className="min-w-[150px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-700"
+              className="min-w-[150px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all text-slate-700"
             >
               <option value="">All Given By</option>
               {givenByOptions.map((name) => (
@@ -512,7 +512,7 @@ function ReverificationPage() {
             <select
               value={filterName}
               onChange={(e) => setFilterName(e.target.value)}
-              className="min-w-[150px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 transition-all text-slate-700"
+              className="min-w-[150px] py-2 px-3 bg-white border border-slate-300 rounded-lg text-sm focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition-all text-slate-700"
             >
               <option value="">All Names</option>
               {nameOptions.map((name) => (
@@ -545,8 +545,8 @@ function ReverificationPage() {
 
         <div className="bg-white">
           <div className="bg-slate-50 border-b border-slate-200 p-4 flex items-center gap-3">
-            <div className="p-2 bg-blue-100 rounded-lg">
-              <FileText className="h-5 w-5 text-blue-600" />
+            <div className="p-2 bg-emerald-100 rounded-lg">
+              <FileText className="h-5 w-5 text-emerald-600" />
             </div>
             <div>
               <h2 className="text-lg font-bold text-slate-800 leading-none">
@@ -558,7 +558,7 @@ function ReverificationPage() {
 
           {loading ? (
             <div className="text-center py-10">
-              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-blue-500 focus:ring-blue-500 mb-4"></div>
+              <div className="inline-block animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-emerald-500 focus:ring-emerald-500 mb-4"></div>
               <p className="text-slate-600">Loading task data...</p>
             </div>
           ) : error ? (
@@ -592,7 +592,7 @@ function ReverificationPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-yellow-50">
                       Task Start Date
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-blue-50">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-emerald-50">
                       Planned Date
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-green-50">
@@ -601,7 +601,7 @@ function ReverificationPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-orange-50">
                       Work Done Days
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-purple-50">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-teal-50">
                       Remarks
                     </th>
                   </tr>
@@ -632,7 +632,7 @@ function ReverificationPage() {
                         <td className="px-6 py-4 whitespace-nowrap bg-yellow-50">
                           <div className="text-sm text-gray-900">{history["colG"] || "—"}</div>
                         </td>
-                        <td className="px-6 py-4 whitespace-nowrap bg-blue-50">
+                        <td className="px-6 py-4 whitespace-nowrap bg-emerald-50">
                           <div className="text-sm text-gray-900">{history["colK"] || "—"}</div>
                         </td>
                         <td className="px-6 py-4 whitespace-nowrap bg-green-50">
@@ -649,7 +649,7 @@ function ReverificationPage() {
                             </span>
                           ) : "—"}
                         </td>
-                        <td className="px-6 py-4 bg-purple-50">
+                        <td className="px-6 py-4 bg-teal-50">
                           <div className="text-sm text-gray-900 max-w-xs" title={history["colT"]}>
                             {history["colT"] || "—"}
                           </div>
@@ -678,7 +678,7 @@ function ReverificationPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                       <input
                         type="checkbox"
-                        className="h-4 w-4 rounded border-gray-300 text-slate-600 focus:ring-purple-500"
+                        className="h-4 w-4 rounded border-gray-300 text-slate-600 focus:ring-teal-500"
                         checked={filteredTaskData.length > 0 && selectedItems.size === filteredTaskData.length}
                         onChange={handleSelectAllItems}
                       />
@@ -701,13 +701,13 @@ function ReverificationPage() {
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-yellow-50">
                       Task Start Date
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-blue-50">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-emerald-50">
                       Planned Date
                     </th>
                     <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-orange-50">
                       Work Done Days
                     </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-purple-50">
+                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-teal-50">
                       Remarks
                     </th>
                   </tr>
@@ -718,11 +718,11 @@ function ReverificationPage() {
                       const isSelected = selectedItems.has(task._id)
                       const daysPending = calcDays(task["colG"], task["colL"])
                       return (
-                        <tr key={task._id} className={`${isSelected ? "bg-blue-50/50 shadow-sm" : ""} hover:bg-slate-50 transition-all`}>
+                        <tr key={task._id} className={`${isSelected ? "bg-emerald-50/50 shadow-sm" : ""} hover:bg-slate-50 transition-all`}>
                           <td className="px-6 py-4 whitespace-nowrap">
                             <input
                               type="checkbox"
-                              className="h-4 w-4 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                              className="h-4 w-4 rounded border-gray-300 text-emerald-600 focus:ring-emerald-500"
                               checked={isSelected}
                               onChange={(e) => handleCheckboxClick(e, task._id)}
                             />
@@ -747,7 +747,7 @@ function ReverificationPage() {
                           <td className="px-6 py-4 whitespace-nowrap bg-yellow-50">
                             <div className="text-sm text-gray-900">{task["colG"] || "—"}</div>
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap bg-blue-50">
+                          <td className="px-6 py-4 whitespace-nowrap bg-emerald-50">
                             <div className="text-sm text-gray-900">{task["colK"] || "—"}</div>
                           </td>
                           <td className="px-6 py-4 whitespace-nowrap bg-orange-50">
@@ -761,7 +761,7 @@ function ReverificationPage() {
                               </span>
                             ) : "—"}
                           </td>
-                          <td className="px-6 py-4 whitespace-nowrap bg-purple-50">
+                          <td className="px-6 py-4 whitespace-nowrap bg-teal-50">
                             <input
                               type="text"
                               placeholder="Enter remarks"

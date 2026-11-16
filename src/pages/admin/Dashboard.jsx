@@ -258,7 +258,7 @@ export default function AdminDashboard() {
   const fetchMasterSheetColumnA = async () => {
     try {
       setIsFetchingMaster(true)
-      const response = await fetch(`https://docs.google.com/spreadsheets/d/1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms/gviz/tq?tqx=out:json&sheet=Main`)
+      const response = await fetch(`https://docs.google.com/spreadsheets/d/${import.meta.env.VITE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=Main`)
 
       if (!response.ok) {
         throw new Error(`Failed to fetch master sheet data: ${response.status}`)
@@ -335,7 +335,7 @@ export default function AdminDashboard() {
 
       await Promise.all(sheetNames.map(async (sheetName) => {
         try {
-          const response = await fetch(`https://docs.google.com/spreadsheets/d/1oDYiEQ043anmknvvioawJCiZ3i5BNaWh7_lIyJghlms/gviz/tq?tqx=out:json&sheet=${sheetName}`);
+          const response = await fetch(`https://docs.google.com/spreadsheets/d/${import.meta.env.VITE_SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheetName}`);
 
           if (!response.ok) {
             console.warn(`Failed to fetch ${sheetName} sheet data: ${response.status}`);
@@ -706,11 +706,11 @@ export default function AdminDashboard() {
       case "one-time":
         return "bg-slate-100 text-slate-700 hover:bg-slate-200"
       case "daily":
-        return "bg-blue-100 text-blue-700 hover:bg-blue-200"
+        return "bg-emerald-100 text-emerald-700 hover:bg-emerald-200"
       case "weekly":
-        return "bg-purple-100 text-purple-700 hover:bg-purple-200"
+        return "bg-teal-100 text-teal-700 hover:bg-teal-200"
       case "fortnightly":
-        return "bg-indigo-100 text-indigo-700 hover:bg-indigo-200"
+        return "bg-teal-100 text-teal-700 hover:bg-teal-200"
       case "monthly":
         return "bg-orange-100 text-orange-700 hover:bg-orange-200"
       case "quarterly":
@@ -807,10 +807,10 @@ export default function AdminDashboard() {
           </thead>
           <tbody className="bg-white divide-y divide-slate-100">
             {departmentData.staffMembers.map((staff) => (
-              <tr key={staff.id} className="hover:bg-blue-50/40 transition-colors duration-200">
+              <tr key={staff.id} className="hover:bg-emerald-50/40 transition-colors duration-200">
                 <td className="px-6 py-4 whitespace-nowrap">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white font-medium text-sm shadow-sm">
+                    <div className="w-10 h-10 rounded-full bg-gradient-to-br from-emerald-500 to-emerald-600 flex items-center justify-center text-white font-medium text-sm shadow-sm">
                       {staff.name.charAt(0).toUpperCase()}
                     </div>
                     <div>
@@ -832,7 +832,7 @@ export default function AdminDashboard() {
                   <div className="flex items-center gap-3">
                     <div className="w-24 bg-slate-200 rounded-full h-2 overflow-hidden">
                       <div
-                        className="bg-gradient-to-r from-blue-500 to-blue-600 h-2 rounded-full transition-all duration-500"
+                        className="bg-gradient-to-r from-emerald-500 to-emerald-600 h-2 rounded-full transition-all duration-500"
                         style={{ width: `${staff.progress}%` }}
                       ></div>
                     </div>
@@ -925,7 +925,7 @@ export default function AdminDashboard() {
     <AdminLayout>
       <div className="space-y-6 max-w-[1400px] mx-auto">
         {/* Welcome Hero Banner (From User's Reference Image) */}
-        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#eff6ff] via-white to-[#fff7ed] p-6 border border-[#e2e8f0]/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#ecfdf5] via-white to-[#fff7ed] p-6 border border-[#e2e8f0]/80 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div className="flex items-center gap-4">
             <div className="h-12 w-12 rounded-2xl bg-white border border-[#fed7aa] flex items-center justify-center text-[#f97316] shadow-xs">
               <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -935,14 +935,14 @@ export default function AdminDashboard() {
             <div>
               <div className="flex items-center gap-2">
                 <h2 className="text-xl font-black text-[#0f172a] tracking-tight">
-                  Good Day, <span className="text-[#2563eb] uppercase">{sessionStorage.getItem('username') || "Member"}</span>
+                  Good Day, <span className="text-[#059669] uppercase">{sessionStorage.getItem('username') || "Member"}</span>
                 </h2>
-                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#dbeafe] text-[#1d4ed8]">
+                <span className="px-2 py-0.5 rounded-full text-[10px] font-extrabold uppercase tracking-wider bg-[#d1fae5] text-[#047857]">
                   {sessionStorage.getItem('role') || "ADMIN"}
                 </span>
               </div>
               <p className="text-xs text-[#64748b] font-medium mt-0.5">
-                Here's what's happening in your Possh Town workspace today
+                Here's what's happening in your Sales Check List Pasmin workspace today
               </p>
             </div>
           </div>
@@ -983,7 +983,7 @@ export default function AdminDashboard() {
             <select
               value={selectedMasterOption}
               onChange={(e) => setSelectedMasterOption(e.target.value)}
-              className="rounded-2xl border border-[#e2e8f0] bg-white px-3.5 py-2 text-xs font-bold text-[#334155] shadow-xs hover:border-[#cbd5e1] focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all cursor-pointer"
+              className="rounded-2xl border border-[#e2e8f0] bg-white px-3.5 py-2 text-xs font-bold text-[#334155] shadow-xs hover:border-[#cbd5e1] focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all cursor-pointer"
               disabled={isFetchingMaster || dashboardType === "delegation"}
             >
               {dashboardType === "delegation" ? (
@@ -1021,7 +1021,7 @@ export default function AdminDashboard() {
           <div className="rounded-2xl bg-white p-5 border border-[#e8ecf4] shadow-xs hover:shadow-md transition-all">
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-3">
-                <div className="h-9 w-9 rounded-xl bg-[#eff6ff] border border-[#dbeafe] flex items-center justify-center text-[#3b82f6]">
+                <div className="h-9 w-9 rounded-xl bg-[#ecfdf5] border border-[#d1fae5] flex items-center justify-center text-[#10b981]">
                   <CheckCircle2 className="h-4.5 w-4.5" />
                 </div>
                 <span className="text-xs font-bold text-[#64748b]">
@@ -1092,14 +1092,14 @@ export default function AdminDashboard() {
             <button
               className={`flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl font-bold text-xs transition-all cursor-pointer ${
                 taskView === "upcoming"
-                  ? "bg-white text-[#2563eb] shadow-xs border border-[#bfdbfe]"
+                  ? "bg-white text-[#059669] shadow-xs border border-[#bfdbfe]"
                   : "text-[#64748b] hover:text-[#0f172a] hover:bg-white/60"
               }`}
               onClick={() => setTaskView("upcoming")}
             >
-              <span className={`h-2 w-2 rounded-full ${taskView === "upcoming" ? "bg-[#3b82f6]" : "bg-slate-300"}`}></span>
+              <span className={`h-2 w-2 rounded-full ${taskView === "upcoming" ? "bg-[#10b981]" : "bg-slate-300"}`}></span>
               {dashboardType === "delegation" ? "All Pending" : "Upcoming"}
-              <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-[#eff6ff] text-[#2563eb] font-extrabold">
+              <span className="ml-1 px-1.5 py-0.5 rounded-full text-[10px] bg-[#ecfdf5] text-[#059669] font-extrabold">
                 {tasksByView.upcoming?.length || 0}
               </span>
             </button>
@@ -1129,7 +1129,7 @@ export default function AdminDashboard() {
                     placeholder="Search tasks by title, ID, assignee..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full rounded-2xl border border-[#e2e8f0] pl-10 pr-4 py-2.5 text-xs font-medium focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/10 bg-[#f8fafc] focus:bg-white transition-all placeholder:text-[#94a3b8]"
+                    className="w-full rounded-2xl border border-[#e2e8f0] pl-10 pr-4 py-2.5 text-xs font-medium focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/10 bg-[#f8fafc] focus:bg-white transition-all placeholder:text-[#94a3b8]"
                   />
                   <Filter className="absolute left-3.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-[#94a3b8]" />
                 </div>
@@ -1139,7 +1139,7 @@ export default function AdminDashboard() {
                   id="staff-filter"
                   value={filterStaff}
                   onChange={(e) => setFilterStaff(e.target.value)}
-                  className="w-full rounded-2xl border border-[#e2e8f0] px-3.5 py-2.5 text-xs font-bold focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/10 bg-[#f8fafc] focus:bg-white transition-all text-[#334155] cursor-pointer"
+                  className="w-full rounded-2xl border border-[#e2e8f0] px-3.5 py-2.5 text-xs font-bold focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/10 bg-[#f8fafc] focus:bg-white transition-all text-[#334155] cursor-pointer"
                 >
                   <option value="all">All Staff Members</option>
                   {departmentData.staffMembers.map((staff) => (
@@ -1186,7 +1186,7 @@ export default function AdminDashboard() {
                     {getTasksByView(taskView).map((task) => (
                       <tr key={task.id} className="hover:bg-slate-50/80 transition-colors duration-150">
                         <td className="px-5 py-3.5 whitespace-nowrap">
-                          <span className="font-mono text-xs font-bold text-blue-700 bg-blue-50 px-2 py-1 rounded-md border border-blue-100">
+                          <span className="font-mono text-xs font-bold text-emerald-700 bg-emerald-50 px-2 py-1 rounded-md border border-emerald-100">
                             {task.id}
                           </span>
                         </td>
@@ -1195,7 +1195,7 @@ export default function AdminDashboard() {
                         </td>
                         <td className="px-5 py-3.5 whitespace-nowrap">
                           <div className="flex items-center gap-2.5">
-                            <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-blue-600 to-indigo-600 flex items-center justify-center text-white text-xs font-bold shadow-xs">
+                            <div className="w-7 h-7 rounded-full bg-gradient-to-tr from-emerald-600 to-teal-600 flex items-center justify-center text-white text-xs font-bold shadow-xs">
                               {task.assignedTo ? task.assignedTo.charAt(0).toUpperCase() : 'U'}
                             </div>
                             <span className="text-xs text-slate-700 font-semibold">{task.assignedTo}</span>
@@ -1222,8 +1222,8 @@ export default function AdminDashboard() {
         <div className="grid gap-6 md:grid-cols-4">
           <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm hover:shadow-lg transition-all duration-300">
             <div className="flex items-center gap-4 mb-6">
-              <div className="p-3 bg-blue-100 rounded-xl shadow-inner">
-                <Users className="h-6 w-6 text-blue-600" />
+              <div className="p-3 bg-emerald-100 rounded-xl shadow-inner">
+                <Users className="h-6 w-6 text-emerald-600" />
               </div>
               <h3 className="text-base font-bold text-slate-700">Active Staff</h3>
             </div>
@@ -1266,7 +1266,7 @@ export default function AdminDashboard() {
             <button
               onClick={() => setActiveTab("overview")}
               className={`flex-1 py-3 text-center rounded-xl font-semibold text-sm transition-all duration-200 ${activeTab === "overview"
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
+                  ? "bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-md"
                   : "text-slate-600 hover:bg-slate-50"
                 }`}
             >
@@ -1275,7 +1275,7 @@ export default function AdminDashboard() {
             <button
               onClick={() => setActiveTab("mis")}
               className={`flex-1 py-3 text-center rounded-xl font-semibold text-sm transition-all duration-200 ${activeTab === "mis"
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
+                  ? "bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-md"
                   : "text-slate-600 hover:bg-slate-50"
                 }`}
             >
@@ -1284,7 +1284,7 @@ export default function AdminDashboard() {
             <button
               onClick={() => setActiveTab("staff")}
               className={`flex-1 py-3 text-center rounded-xl font-semibold text-sm transition-all duration-200 ${activeTab === "staff"
-                  ? "bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md"
+                  ? "bg-gradient-to-r from-emerald-600 to-emerald-700 text-white shadow-md"
                   : "text-slate-600 hover:bg-slate-50"
                 }`}
             >
@@ -1298,8 +1298,8 @@ export default function AdminDashboard() {
                 <div className="lg:col-span-4 rounded-2xl border border-slate-200 bg-white shadow-md overflow-hidden">
                   <div className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 p-5">
                     <div className="flex items-center gap-3">
-                      <div className="p-2 bg-blue-100 rounded-lg">
-                        <BarChart3 className="h-5 w-5 text-blue-600" />
+                      <div className="p-2 bg-emerald-100 rounded-lg">
+                        <BarChart3 className="h-5 w-5 text-emerald-600" />
                       </div>
                       <div>
                         <h3 className="text-slate-900 font-semibold">Tasks Overview</h3>
@@ -1331,8 +1331,8 @@ export default function AdminDashboard() {
               <div className="rounded-2xl border border-slate-200 bg-white shadow-md overflow-hidden">
                 <div className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 p-5">
                   <div className="flex items-center gap-3">
-                    <div className="p-2 bg-purple-100 rounded-lg">
-                      <Users className="h-5 w-5 text-purple-600" />
+                    <div className="p-2 bg-teal-100 rounded-lg">
+                      <Users className="h-5 w-5 text-teal-600" />
                     </div>
                     <div>
                       <h3 className="text-slate-900 font-semibold">Staff Task Summary</h3>
@@ -1375,7 +1375,7 @@ export default function AdminDashboard() {
                           type="date"
                           value={dateRange.startDate}
                           onChange={(e) => setDateRange(prev => ({ ...prev, startDate: e.target.value }))}
-                          className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                          className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                         />
                       </div>
                       <div>
@@ -1387,13 +1387,13 @@ export default function AdminDashboard() {
                           type="date"
                           value={dateRange.endDate}
                           onChange={(e) => setDateRange(prev => ({ ...prev, endDate: e.target.value }))}
-                          className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                          className="w-full rounded-lg border border-slate-300 px-4 py-2.5 text-sm focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-500/20 transition-all"
                         />
                       </div>
                       <div className="flex items-end">
                         <button
                           onClick={filterTasksByDateRange}
-                          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-2.5 px-6 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200"
+                          className="w-full bg-gradient-to-r from-emerald-600 to-emerald-700 hover:from-emerald-700 hover:to-emerald-800 text-white py-2.5 px-6 rounded-lg font-medium shadow-md hover:shadow-lg transition-all duration-200"
                         >
                           Apply Filter
                         </button>
@@ -1403,9 +1403,9 @@ export default function AdminDashboard() {
 
                   {/* Overall stats */}
                   <div className="grid gap-5 md:grid-cols-3">
-                    <div className="rounded-xl bg-white border border-blue-200 p-5 shadow-sm">
-                      <div className="text-sm font-medium text-blue-700 mb-2">Total Tasks Assigned</div>
-                      <div className="text-3xl font-bold text-blue-900">
+                    <div className="rounded-xl bg-white border border-emerald-200 p-5 shadow-sm">
+                      <div className="text-sm font-medium text-emerald-700 mb-2">Total Tasks Assigned</div>
+                      <div className="text-3xl font-bold text-emerald-900">
                         {dateRange.filtered ? filteredDateStats.totalTasks : displayStats.total}
                       </div>
                       {dateRange.filtered && (
@@ -1433,8 +1433,8 @@ export default function AdminDashboard() {
 
                   {/* Additional breakdown */}
                   {dateRange.filtered && (
-                    <div className="rounded-xl border border-blue-200 p-6 bg-gradient-to-br from-blue-50 to-white">
-                      <h4 className="text-lg font-semibold text-blue-900 mb-5">Detailed Date Range Breakdown</h4>
+                    <div className="rounded-xl border border-emerald-200 p-6 bg-gradient-to-br from-emerald-50 to-white">
+                      <h4 className="text-lg font-semibold text-emerald-900 mb-5">Detailed Date Range Breakdown</h4>
                       <div className="grid gap-4 md:grid-cols-3">
                         <div className="bg-white p-4 rounded-lg border border-amber-200 shadow-sm">
                           <div className="text-sm font-medium text-amber-700 mb-1">Pending Tasks</div>
@@ -1457,10 +1457,10 @@ export default function AdminDashboard() {
                     </div>
                   )}
 
-                  <div className="rounded-xl bg-white border border-blue-200 p-6 shadow-sm">
-                    <h4 className="text-sm font-semibold text-blue-900 mb-4">Completion Rate Progress</h4>
+                  <div className="rounded-xl bg-white border border-emerald-200 p-6 shadow-sm">
+                    <h4 className="text-sm font-semibold text-emerald-900 mb-4">Completion Rate Progress</h4>
                     <div className="flex items-center gap-6">
-                      <div className="text-3xl font-bold text-blue-900">
+                      <div className="text-3xl font-bold text-emerald-900">
                         {dateRange.filtered ? filteredDateStats.completionRate : displayStats.rate}%
                       </div>
                       <div className="flex-1">
@@ -1495,8 +1495,8 @@ export default function AdminDashboard() {
             <div className="rounded-2xl border border-slate-200 bg-white shadow-md overflow-hidden">
               <div className="bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-200 p-5">
                 <div className="flex items-center gap-3">
-                  <div className="p-2 bg-purple-100 rounded-lg">
-                    <Users className="h-5 w-5 text-purple-600" />
+                  <div className="p-2 bg-teal-100 rounded-lg">
+                    <Users className="h-5 w-5 text-teal-600" />
                   </div>
                   <div>
                     <h3 className="text-slate-900 font-semibold">Staff Performance</h3>
