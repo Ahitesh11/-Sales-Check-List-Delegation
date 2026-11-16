@@ -2,7 +2,7 @@
 "use client"
 
 import { useState, useEffect, useCallback, useMemo } from "react"
-import { CheckCircle2, Search, History, ArrowLeft, Sparkles, FileText, Calendar, Filter, ChevronRight, AlertCircle } from "lucide-react"
+import { CheckCircle2, Search, History, ArrowLeft, Sparkles, FileText, Calendar, Filter, ChevronRight, AlertCircle, Undo2 } from "lucide-react"
 import AdminLayout from "../components/layout/AdminLayout"
 import { fetchSheetDataFast } from "../utils/sheetApi"
 
@@ -419,6 +419,85 @@ function ReverificationPage() {
     }
   }
 
+  // SEND BACK: return selected tasks to the assignee (pending again in Delegation)
+  const handleSendBack = async () => {
+    const selectedItemsArray = Array.from(selectedItems)
+    if (selectedItemsArray.length === 0) {
+      alert("Please select at least one item to send back")
+      return
+    }
+
+    const missingRemarks = selectedItemsArray.filter((id) => !remarksData[id] || remarksData[id].trim() === "")
+    if (missingRemarks.length > 0) {
+      alert(`Please enter remarks (reason) for all selected items. ${missingRemarks.length} item(s) are missing remarks.`)
+      return
+    }
+
+    if (!window.confirm(`Send back ${selectedItemsArray.length} task(s) to the assignee?`)) return
+
+    setIsSubmitting(true)
+    try {
+      const taskIds = []
+      const remarks = {}
+      selectedItemsArray.forEach((id) => {
+        const item = taskData.find((task) => task._id === id)
+        taskIds.push(item["colB"])
+        remarks[item["colB"]] = remarksData[id].trim()
+      })
+
+      // Uses only the existing "update" action, so no Apps Script redeploy is needed.
+      // Read DELEGATION DONE straight from Apps Script so sheet row = array index + 1.
+      const doneResp = await fetch(
+        `${CONFIG.APPS_SCRIPT_URL}?sheet=${encodeURIComponent("DELEGATION DONE")}&action=fetch`,
+      )
+      const doneJson = await doneResp.json()
+      if (!doneJson.table || !doneJson.table.rows) {
+        throw new Error(doneJson.error || "Could not read DELEGATION DONE sheet")
+      }
+      const doneRows = doneJson.table.rows.map((r) => (r.c || []).map((c) => (c && c.v != null ? c.v : "")))
+
+      for (const taskId of taskIds) {
+        let sheetRow = -1
+        for (let i = doneRows.length - 1; i >= 0; i--) {
+          if (
+            String(doneRows[i][1]).trim() === String(taskId).trim() &&
+            String(doneRows[i][2]).trim().toLowerCase() === "done"
+          ) {
+            sheetRow = i + 1
+            break
+          }
+        }
+        if (sheetRow < 2) throw new Error(`No "Done" entry found in DELEGATION DONE for Task ID ${taskId}`)
+
+        const oldRemark = String(doneRows[sheetRow - 1][4] || "")
+        const note = `Sent back: ${remarks[taskId]}`
+        const formData = new FormData()
+        formData.append("sheetName", "DELEGATION DONE")
+        formData.append("action", "update")
+        formData.append("rowIndex", String(sheetRow))
+        formData.append("rowData", JSON.stringify(["", "", "Sent Back", "", oldRemark ? `${oldRemark} | ${note}` : note]))
+
+        const response = await fetch(CONFIG.APPS_SCRIPT_URL, { method: "POST", body: formData })
+        const result = await response.json().catch(() => null)
+        if (!result || !result.success) {
+          throw new Error((result && (result.message || result.error)) || "Google Sheet did not accept the data")
+        }
+      }
+
+      setTaskData((prev) => prev.filter((item) => !selectedItems.has(item._id)))
+      setSelectedItems(new Set())
+      setRemarksData({})
+      setSuccessMessage(`${selectedItemsArray.length} task(s) sent back to the assignee.`)
+      setTimeout(() => setSuccessMessage(""), 5000)
+      setTimeout(() => fetchSheetData(), 2000)
+    } catch (error) {
+      console.error("Send back error:", error)
+      alert("Failed to send back: " + error.message)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   // Convert Set to Array for display
   const selectedItemsCount = selectedItems.size
 
@@ -458,6 +537,20 @@ function ReverificationPage() {
                 </>
               )}
             </button>
+
+            {!showHistory && (
+              <button
+                onClick={handleSendBack}
+                disabled={selectedItemsCount === 0 || isSubmitting}
+                className={`flex-1 md:flex-none flex items-center justify-center gap-2 rounded-xl py-3 px-5 border font-semibold transition-all shadow-sm ${selectedItemsCount === 0 || isSubmitting
+                    ? "bg-slate-100 border-slate-200 text-slate-400 cursor-not-allowed"
+                    : "bg-white border-red-200 text-red-600 hover:bg-red-50"
+                  }`}
+              >
+                <Undo2 className="h-4 w-4" />
+                <span>{`Send Back (${selectedItemsCount})`}</span>
+              </button>
+            )}
 
             {!showHistory && (
               <button

@@ -624,10 +624,17 @@ function DelegationDataPage() {
             insertFormData.append("action", "insert")
             insertFormData.append("rowData", JSON.stringify(newRowData))
 
-            return fetch(CONFIG.APPS_SCRIPT_URL, {
+            const insertResponse = await fetch(CONFIG.APPS_SCRIPT_URL, {
               method: "POST",
               body: insertFormData,
             })
+            const insertResult = await insertResponse.json().catch(() => null)
+            if (!insertResult || !insertResult.success) {
+              throw new Error(
+                (insertResult && (insertResult.message || insertResult.error)) ||
+                  "Google Sheet did not accept the data",
+              )
+            }
           }),
         )
       }

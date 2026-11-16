@@ -113,6 +113,10 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
     
+    if (params.action === 'sendBackTask') {
+      return sendBackTask(params);
+    }
+
     if (params.action === 'updateTaskData') {
       return updateTaskData(params);
     }
@@ -217,6 +221,50 @@ function doPost(e) {
       success: false,
       error: error.toString(),
       message: "Failed to process request: " + error.message
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Send a task back to the assignee: marks its latest "Done" entry in the
+// DELEGATION DONE sheet as "Sent Back", so the Actual/Status formulas in the
+// DELEGATION sheet clear and the task shows up as pending again.
+function sendBackTask(params) {
+  try {
+    var taskIds = JSON.parse(params.taskIds);
+    var remarks = params.remarks ? JSON.parse(params.remarks) : {};
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(params.doneSheetName || 'DELEGATION DONE');
+    if (!sheet) throw new Error("Sheet not found: " + (params.doneSheetName || 'DELEGATION DONE'));
+
+    var data = sheet.getDataRange().getValues();
+    var sentBack = [];
+    taskIds.forEach(function(taskId) {
+      for (var i = data.length - 1; i >= 1; i--) {
+        if (String(data[i][1]).trim() === String(taskId).trim() &&
+            String(data[i][2]).trim().toLowerCase() === 'done') {
+          sheet.getRange(i + 1, 3).setValue('Sent Back');
+          var note = 'Sent back: ' + (remarks[taskId] || '');
+          var oldRemark = String(data[i][4] || '');
+          sheet.getRange(i + 1, 5).setValue(oldRemark ? oldRemark + ' | ' + note : note);
+          sentBack.push(taskId);
+          break;
+        }
+      }
+    });
+
+    if (sentBack.length !== taskIds.length) {
+      throw new Error("No 'Done' entry found in DELEGATION DONE for some tasks. Sent back: " + sentBack.length + "/" + taskIds.length);
+    }
+    return ContentService.createTextOutput(JSON.stringify({
+      success: true,
+      message: "Tasks sent back successfully",
+      sentBack: sentBack
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      success: false,
+      error: error.toString(),
+      message: "Failed to send back: " + error.message
     })).setMimeType(ContentService.MimeType.JSON);
   }
 }
