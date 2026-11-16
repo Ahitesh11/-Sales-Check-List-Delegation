@@ -13,7 +13,7 @@ const CONFIG = {
     import.meta.env.VITE_APPS_SCRIPT_URL,
 
   // Google Drive folder ID for file uploads
-  DRIVE_FOLDER_ID: "1Sb2UEvIp37owQISBjg4BmQuklqKAi7Mr",
+  DRIVE_FOLDER_ID: import.meta.env.VITE_DRIVE_FOLDER_ID,
 
   // Sheet name to work with
   SHEET_NAME: "RKL",

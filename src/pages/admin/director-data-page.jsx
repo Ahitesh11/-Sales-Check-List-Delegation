@@ -8,7 +8,7 @@ import ReactDOM from 'react-dom';
 // Google Apps Script URL
 const APPS_SCRIPT_URL = import.meta.env.VITE_APPS_SCRIPT_URL
 // Google Drive folder ID
-const DRIVE_FOLDER_ID = "1Sb2UEvIp37owQISBjg4BmQuklqKAi7Mr"
+const DRIVE_FOLDER_ID = import.meta.env.VITE_DRIVE_FOLDER_ID
 
 function AccountDataPage() {
   const [accountData, setAccountData] = useState([])
