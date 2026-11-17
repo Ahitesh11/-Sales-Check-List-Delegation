@@ -113,6 +113,10 @@ function doPost(e) {
       })).setMimeType(ContentService.MimeType.JSON);
     }
     
+    if (params.action === 'sendBackChecklistTask') {
+      return sendBackChecklistTask(params);
+    }
+
     if (params.action === 'sendBackTask') {
       return sendBackTask(params);
     }
@@ -258,6 +262,46 @@ function sendBackTask(params) {
     return ContentService.createTextOutput(JSON.stringify({
       success: true,
       message: "Tasks sent back successfully",
+      sentBack: sentBack
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (error) {
+    return ContentService.createTextOutput(JSON.stringify({
+      success: false,
+      error: error.toString(),
+      message: "Failed to send back: " + error.message
+    })).setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+// Send Check List tasks back: clear Actual (K), Status (M), Image (O), Verification (S, T)
+// so the task becomes pending again for the assignee; reason is appended to Remarks (N).
+function sendBackChecklistTask(params) {
+  try {
+    var rows = JSON.parse(params.rowData);
+    var ss = SpreadsheetApp.getActiveSpreadsheet();
+    var sheet = ss.getSheetByName(params.sheetName || 'Check List');
+    if (!sheet) throw new Error("Sheet not found: " + (params.sheetName || 'Check List'));
+
+    var sentBack = [];
+    rows.forEach(function(r) {
+      var rowIndex = parseInt(r.rowIndex);
+      if (isNaN(rowIndex) || rowIndex < 2 || String(sheet.getRange(rowIndex, 2).getValue()).trim() !== String(r.taskId).trim()) {
+        rowIndex = findRowByTaskId(sheet, r.taskId);
+      }
+      if (!(rowIndex > 1)) throw new Error("Row not found for Task ID: " + r.taskId);
+
+      sheet.getRange(rowIndex, 11).clearContent(); // K
+      sheet.getRange(rowIndex, 13).clearContent(); // M
+      sheet.getRange(rowIndex, 15).clearContent(); // O
+      sheet.getRange(rowIndex, 19, 1, 2).clearContent(); // S, T
+      var old = String(sheet.getRange(rowIndex, 14).getValue() || '');
+      var note = 'Sent back: ' + (r.remarks || '');
+      sheet.getRange(rowIndex, 14).setValue(old ? old + ' | ' + note : note);
+      sentBack.push(r.taskId);
+    });
+
+    return ContentService.createTextOutput(JSON.stringify({
+      success: true,
       sentBack: sentBack
     })).setMimeType(ContentService.MimeType.JSON);
   } catch (error) {
@@ -573,7 +617,7 @@ function uploadFileToDrive(base64Data, fileName, mimeType, folderId) {
     return fileUrl;
   } catch (error) {
     console.error("Error uploading file: " + error.toString());
-    return null;
+    throw error;
   }
 }
 

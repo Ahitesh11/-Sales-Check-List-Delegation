@@ -12,8 +12,11 @@ const CONFIG = {
   APPS_SCRIPT_URL:
     import.meta.env.VITE_APPS_SCRIPT_URL,
 
-  // Sheet name to work with
-  SHEET_NAME: "DELEGATION",
+  // Sheets that can be verified
+  SOURCES: [
+    { id: "delegation", label: "Delegation", sheet: "DELEGATION" },
+    { id: "checklist", label: "Check List", sheet: "Check List" },
+  ],
 
   // Page configuration
   PAGE_CONFIG: {
@@ -39,6 +42,8 @@ function ReverificationPage() {
   const [username, setUsername] = useState("")
   const [filterGivenBy, setFilterGivenBy] = useState("")
   const [filterName, setFilterName] = useState("")
+  const [source, setSource] = useState(CONFIG.SOURCES[0])
+  const isChecklist = source.id === "checklist"
 
   const formatDateToDDMMYYYY = (date) => {
     const day = date.getDate().toString().padStart(2, "0")
@@ -169,7 +174,7 @@ function ReverificationPage() {
       const pendingTasks = []
       const historyTasks = []
 
-      const { rows, isGviz } = await fetchSheetDataFast(CONFIG.SHEET_NAME)
+      const { rows, isGviz } = await fetchSheetDataFast(source.sheet)
 
       const currentUsername = sessionStorage.getItem("username")
       const currentUserRole = sessionStorage.getItem("role")
@@ -195,8 +200,11 @@ function ReverificationPage() {
         const isUserMatch = currentUserRole === "admin" || (currentUsername && assignedTo.toLowerCase() === currentUsername.toLowerCase())
         if (!isUserMatch && currentUserRole !== "admin") return
 
-        const columnKValue = rowValues[10] // Column K
-        const columnLValue = rowValues[11] // Column L
+        // Delegation: planned = K, done = L. Check List: planned = G, done (actual) = K.
+        const plannedRaw = isChecklist ? rowValues[6] : rowValues[10]
+        const doneRaw = isChecklist ? rowValues[10] : rowValues[11]
+        const columnKValue = plannedRaw
+        const columnLValue = doneRaw
         const columnSValue = rowValues[18] // Column S
 
         // Check conditions: Column K and L are not null
@@ -226,8 +234,8 @@ function ReverificationPage() {
           colH: rowValues[7] || "",
           colI: rowValues[8] || "",
           colJ: rowValues[9] || "",
-          colK: rowValues[10] ? parseGoogleSheetsDate(String(rowValues[10])) : "", // Planned Date
-          colL: rowValues[11] ? parseGoogleSheetsDate(String(rowValues[11])) : "", // Mark Done Date
+          colK: plannedRaw ? parseGoogleSheetsDate(String(plannedRaw)) : "", // Planned Date
+          colL: doneRaw ? parseGoogleSheetsDate(String(doneRaw)) : "", // Mark Done Date
           colM: rowValues[12] || "",
           colN: rowValues[13] || "",
           colO: rowValues[14] || "",
@@ -256,11 +264,24 @@ function ReverificationPage() {
       setError("Failed to load task data: " + error.message)
       setLoading(false)
     }
-  }, [])
+  }, [source, isChecklist])
 
   useEffect(() => {
     fetchSheetData()
   }, [fetchSheetData])
+
+  const switchSource = (src) => {
+    if (src.id === source.id) return
+    setTaskData([])
+    setHistoryData([])
+    setSelectedItems(new Set())
+    setRemarksData({})
+    setSearchTerm("")
+    setFilterGivenBy("")
+    setFilterName("")
+    setShowHistory(false)
+    setSource(src)
+  }
 
   // Checkbox handlers
   const handleSelectItem = useCallback((id, isChecked) => {
@@ -397,7 +418,7 @@ function ReverificationPage() {
 
       // Submit to Google Sheets in background
       const formData = new FormData()
-      formData.append("sheetName", CONFIG.SHEET_NAME)
+      formData.append("sheetName", source.sheet)
       formData.append("action", "updateReverificationData")
       formData.append("rowData", JSON.stringify(submissionData))
 
@@ -437,6 +458,29 @@ function ReverificationPage() {
 
     setIsSubmitting(true)
     try {
+      if (isChecklist) {
+        const rowData = selectedItemsArray.map((id) => {
+          const item = taskData.find((task) => task._id === id)
+          return { taskId: item["colB"], rowIndex: item._rowIndex, remarks: remarksData[id].trim() }
+        })
+        const fd = new FormData()
+        fd.append("action", "sendBackChecklistTask")
+        fd.append("sheetName", source.sheet)
+        fd.append("rowData", JSON.stringify(rowData))
+        const resp = await fetch(CONFIG.APPS_SCRIPT_URL, { method: "POST", body: fd })
+        const res = await resp.json().catch(() => null)
+        if (!res || !res.success) {
+          throw new Error((res && (res.message || res.error)) || "Google Sheet did not accept the data")
+        }
+        setTaskData((prev) => prev.filter((item) => !selectedItems.has(item._id)))
+        setSelectedItems(new Set())
+        setRemarksData({})
+        setSuccessMessage(`${selectedItemsArray.length} task(s) sent back to the assignee.`)
+        setTimeout(() => setSuccessMessage(""), 5000)
+        setTimeout(() => fetchSheetData(), 2000)
+        return
+      }
+
       const taskIds = []
       const remarks = {}
       selectedItemsArray.forEach((id) => {
@@ -570,6 +614,21 @@ function ReverificationPage() {
               </button>
             )}
           </div>
+        </div>
+
+        {/* Source switch */}
+        <div className="inline-flex rounded-xl border border-slate-200 bg-white p-1 shadow-sm">
+          {CONFIG.SOURCES.map((src) => (
+            <button
+              key={src.id}
+              onClick={() => switchSource(src)}
+              className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${
+                source.id === src.id ? "bg-emerald-600 text-white shadow" : "text-slate-600 hover:bg-slate-50"
+              }`}
+            >
+              {src.label}
+            </button>
+          ))}
         </div>
 
         {/* Enhanced Search Bar */}
